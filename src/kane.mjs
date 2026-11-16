@@ -40,7 +40,36 @@ export function foldEvent(state, ev) {
     return state;
   }
   switch (ev.type) {
-    case 'run_end': state.runEnds.push(ev); state.runEnd = ev; break;
+    // test.md runs: one Proofline step per markdown section, with Kane's own actions and verdict inside it.
+    case 'test_md_step_start': {
+      // Kane's adaptive heal re-runs the flow from the top after a failed replay; keep only the final attempt.
+      if (state.steps.some((x) => x.key === `md-${ev.step_index}`)) { state.heals = (state.heals || 0) + 1; state.steps = state.steps.filter((x) => x.index < ev.step_index); }
+      const s = { key: `md-${ev.step_index}`, index: ev.step_index, heading: ev.heading || `Step ${ev.step_index}`, status: 'running', remark: ev.heading || '', actions: [], startedAt: Date.now() };
+      state.steps.push(s); state.current = s; break;
+    }
+    case 'step_end':
+      if (state.current) state.current.actions.push({ status: ev.status, summary: String(ev.summary || '').replace(/^\w+:\s*/, '').replace(/^PRIMARY:\s*/i, '') });
+      state.other.push(ev); break;
+    case 'run_end':
+      state.runEnds.push(ev); state.runEnd = ev;
+      if (state.current) {
+        state.current.outcome = ev.status;
+        state.current.detail = ev.one_liner || ev.summary || '';
+        state.current.why = ev.status === 'passed' ? '' : (ev.one_liner || ev.summary || ev.reason || '');
+        if (ev.status !== 'passed' && ev.summary) state.current.diagnosis = ev.summary;
+      }
+      break;
+    case 'test_md_step_end': {
+      const s = state.steps.find((x) => x.key === `md-${ev.step_index}`);
+      if (s) {
+        s.status = ev.status === 'passed' ? 'passed' : ev.status;
+        s.ms = ev.duration_s != null ? Math.round(ev.duration_s * 1000) : null;
+        s.endedAt = Date.now();
+        s.remark = s.why ? `${s.heading}: ${s.why.replace(/\s+/g, ' ').trim()}` : s.detail ? `${s.heading}: ${s.detail}` : s.heading;
+      }
+      state.current = null; break;
+    }
+    case 'test_md_summary': state.testMdSummary = ev; break;
     case 'test_md_done': state.testMdDone = ev; break;
     case 'error': state.errors.push(ev); break;
     case 'warning': state.warnings.push(ev); break;
@@ -58,7 +87,7 @@ export function summarise(state, exitCode) {
   else if (exitCode === 2) status = 'not_started';
   else if (exitCode === 3) status = 'timeout';
   else status = 'error';
-  const failedStep = state.steps.find((s) => s.status === 'failed');
+  const failedStep = state.steps.find((s) => s.status === 'failed' || s.status === 'error');
   return {
     status,
     exitCode,
@@ -66,12 +95,14 @@ export function summarise(state, exitCode) {
     reason: end.reason || (failedStep && failedStep.remark) || (state.errors[0] && (state.errors[0].message || state.errors[0].error)) || null,
     duration: Number(done.duration_s ?? end.duration ?? 0) || null,
     credits: state.runEnds.reduce((a, e) => a + (Number(e.credits_consumed) || 0), 0) || null,
-    testUrl: end.test_url || null,
+    testUrl: done.share_url || (state.testMdSummary && state.testMdSummary.share_url) || end.test_url || null,
+    replay: state.testMdSummary ? { replayed: state.testMdSummary.steps?.replay_decisions ?? null, authored: state.testMdSummary.steps?.author_decisions ?? null } : null,
     sessionDir: end.session_dir || null,
     sessionId: done.session_id || null,
     finalState: end.final_state || null,
-    failedStep: failedStep ? { index: failedStep.index, remark: failedStep.remark } : null,
-    steps: state.steps.map(({ key, index, status: st, remark, startedAt, endedAt }) => ({ key, index, status: st, remark, ms: endedAt ? endedAt - startedAt : null })),
+    failedStep: failedStep ? { index: failedStep.index, remark: failedStep.remark, ...(failedStep.diagnosis ? { diagnosis: failedStep.diagnosis } : {}) } : null,
+    heals: state.heals || 0,
+    steps: state.steps.map(({ key, index, status: st, remark, startedAt, endedAt, ms, actions }) => ({ key, index, status: st, remark, ms: ms ?? (endedAt ? endedAt - startedAt : null), ...(actions ? { actions: actions.map((a) => a.summary).filter(Boolean).slice(0, 12) } : {}) })),
     warnings: state.warnings,
   };
 }

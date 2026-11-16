@@ -64,7 +64,7 @@ test('repair brief names the failing step', () => {
 
 function sandbox() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'proofline-'));
-  fs.cpSync(path.join(root, 'examples', 'invoice-app'), dir, { recursive: true });
+  fs.cpSync(path.join(root, 'examples', 'invoice-app'), dir, { recursive: true, filter: (src) => !src.includes('.proofline') });
   fs.rmSync(path.join(dir, '.proofline'), { recursive: true, force: true });
   const g = (...a) => spawnSync('git', a, { cwd: dir, encoding: 'utf8' });
   g('init', '-q'); g('-c', 'user.email=t@t', '-c', 'user.name=t', 'add', '-A'); g('-c', 'user.email=t@t', '-c', 'user.name=t', 'commit', '-qm', 'init');
@@ -141,7 +141,7 @@ test('changed files are relative to the project even inside a larger repo', () =
   const outer = fs.mkdtempSync(path.join(os.tmpdir(), 'proofline-outer-'));
   const dir = path.join(outer, 'apps', 'web');
   fs.mkdirSync(dir, { recursive: true });
-  fs.cpSync(path.join(root, 'examples', 'invoice-app'), dir, { recursive: true });
+  fs.cpSync(path.join(root, 'examples', 'invoice-app'), dir, { recursive: true, filter: (src) => !src.includes('.proofline') });
   const g = (...a) => spawnSync('git', a, { cwd: outer, encoding: 'utf8' });
   g('init', '-q'); g('-c', 'user.email=t@t', '-c', 'user.name=t', 'add', '-A'); g('-c', 'user.email=t@t', '-c', 'user.name=t', 'commit', '-qm', 'init');
   BAD(dir);

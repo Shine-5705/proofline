@@ -41,7 +41,7 @@ export function Setup({ ws }: { ws: Workspace }) {
       <div className="panel">
         <ul className="checklist">
           <Row ok={local ? !!r?.kane.version : null} title="Install Kane CLI" detail={r?.kane.version ? `kane-cli ${r.kane.version}` : 'Node 18+. Chrome for local browser runs.'} fix="npm install -g @testmuai/kane-cli" />
-          <Row ok={local ? !!r?.kane.loggedIn : null} title="Sign in to TestMu AI" detail={r?.kane.loggedIn ? (r.kane.balance != null ? `${r.kane.balance.toLocaleString()} credits left` : 'Signed in') : 'New accounts get 10,000 free credits for a month.'} fix="kane-cli login --oauth" />
+          <Row ok={local ? !!r?.kane.loggedIn : null} title="Sign in to TestMu AI" detail={r?.kane.loggedIn ? (r.kane.balance != null ? `${r.kane.balance.toLocaleString()} credits left` : 'Signed in') : 'Free TestMu AI accounts include starter credits.'} fix="kane-cli login --oauth" />
           <Row ok={local ? !!r?.config : null} title="Add Proofline to the repo" detail="Writes proofline.config.json, a starter flow, and the agent hooks. Never overwrites files." fix="npx proofline init --hooks claude,cursor" />
           <Row ok={local ? (r?.hooks.claude || r?.hooks.cursor) ?? false : null} title="Agent hook installed" detail={r ? `Claude Code: ${r.hooks.claude ? 'on' : 'off'} · Cursor: ${r.hooks.cursor ? 'on' : 'off'}` : 'Your agent tries to stop → Kane CLI runs the affected flows → a failure is handed back as the next prompt.'} fix="npx proofline init --hooks claude,cursor" />
           <Row ok={local ? (r?.flows ?? 0) > 0 : null} title="At least one flow" detail={r ? `${r.flows} flow(s) in ${ws.project.flowsDir}/` : 'Plain-English *_test.md files. Kane can design them from a PRD.'} fix="npx proofline check" />

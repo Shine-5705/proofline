@@ -39,7 +39,7 @@ export function Overview({ ws }: { ws: Workspace }) {
         <div className="stat"><div className="label">Flows passing now</div><div className="value">{passingNow}<small>/ {flows.length}</small></div><div className="sub">latest Kane CLI verdict per flow</div></div>
         <div className="stat"><div className="label">Regressions caught</div><div className="value">{caught.length}</div><div className="sub">{healed.length} healed by the agent · {pct(healed.length, caught.length)}</div></div>
         <div className="stat"><div className="label">Median time to green</div><div className="value">{duration(ttg)}</div><div className="sub">agent start → all flows pass</div></div>
-        <div className="stat"><div className="label">Kane runs, 7 days</div><div className="value">{week.length}</div><div className="sub">{credits ? `${credits.toLocaleString()} credits used` : 'credits not reported'}</div></div>
+        <div className="stat"><div className="label">Kane runs, 7 days</div><div className="value">{week.length}</div><div className="sub">{credits ? `${credits.toLocaleString(undefined, { maximumFractionDigits: 1 })} credits used` : 'credits not reported'}</div></div>
       </div>
 
       <div className="section split">

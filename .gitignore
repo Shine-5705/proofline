@@ -7,3 +7,5 @@ examples/**/.proofline/
 secrets/
 *.log
 .DS_Store
+examples/invoice-app/flows/output-*/
+console/flows/output-*/

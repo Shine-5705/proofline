@@ -5,7 +5,7 @@ talked to each other**. This is the exact sequence to capture both on your own m
 
 ## 0. One-time setup
 ```bash
-# TestMu AI account (free, 10,000 credits). Use the same email you registered with on Luma.
+# TestMu AI account (free tier includes starter credits). Use the same email you registered with on Luma.
 #   https://www.testmuai.com/register/
 npm install -g @testmuai/kane-cli
 kane-cli login --oauth          # browser sign-in

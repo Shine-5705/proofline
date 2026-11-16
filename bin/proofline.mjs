@@ -19,7 +19,8 @@ const HELP = `${c.bold('proofline')} — your coding agent doesn't get to say "d
 Usage
   proofline init [--url <baseUrl>] [--agent claude|codex|cursor|gemini] [--hooks claude,cursor,git]
   proofline check [--changed] [--since <ref>] [--flow <id,...>]   run flows through Kane CLI
-  proofline loop "<task>" [--max <n>] [--verify-first]           agent edits → Kane verifies → repeat until green
+  proofline loop "<task>" [--max <n>] [--verify-first] [--agent-command "<cmd {brief}>"]
+                                                                agent edits → Kane verifies → repeat until green
   proofline watch                                               re-verify affected flows on every save
   proofline hook claude|cursor|git                              entry point for agent / git hooks
   proofline ui [--port 4317]                                    local console over your run history
@@ -53,6 +54,7 @@ async function main() {
   if (cmd === 'hook') { const dir = process.env.CURSOR_PROJECT_DIR || process.env.CLAUDE_PROJECT_DIR; if (dir && fs.existsSync(dir)) process.chdir(dir); }
   const cfg = loadConfig();
   if (args.agent) cfg.agent = args.agent;
+  if (args['agent-command']) { cfg.agent = 'custom'; cfg.agentCommand = String(args['agent-command']); }
   if (args.headed) cfg.headless = false;
   const store = new Store(cfg.dataDir);
 

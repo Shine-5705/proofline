@@ -2,7 +2,7 @@ export type RunStatus = 'running' | 'passed' | 'failed' | 'not_started' | 'timeo
 export type Verdict = 'green' | 'red' | 'blocked' | 'skipped' | 'agent_missing';
 export type LoopStatus = 'running' | 'green' | 'gave_up' | 'blocked' | 'error' | 'skipped';
 
-export interface Step { key: string; index: number; status: string; remark: string; ms: number | null }
+export interface Step { key: string; index: number; status: string; remark: string; ms: number | null; actions?: string[] }
 
 export interface Run {
   id: string;
@@ -27,6 +27,7 @@ export interface Run {
   evidence?: string | null;
   failedStep?: { index: number; remark: string } | null;
   steps: Step[];
+  replay?: { replayed: number | null; authored: number | null } | null;
   source: 'kane-cli' | 'demo';
   raw?: string | null;
 }

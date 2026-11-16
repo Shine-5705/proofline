@@ -213,3 +213,4 @@ details[open] > summary::before { content: "▾"; }
   .hide-sm { display: none; }
   .input { min-width: 0; flex: 1; }
 }
+.steps .remark .actions { display: block; margin-top: 3px; color: var(--text-3); font-size: 12px; line-height: 1.45; }

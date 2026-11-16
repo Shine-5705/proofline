@@ -11,7 +11,7 @@ export function repairBrief(runs, { task, iteration, maxIterations } = {}) {
     lines.push(`## ${r.flowTitle} (${r.flowFile})`);
     lines.push(`- Verdict: ${r.status}${r.exitCode != null ? ` (exit ${r.exitCode})` : ''}`);
     if (r.failedStep) lines.push(`- Failing step ${r.failedStep.index}: ${r.failedStep.remark}`);
-    if (r.summary) lines.push(`- Kane summary: ${r.summary}`);
+    if (r.summary && r.summary !== r.failedStep?.remark) lines.push(`- Kane summary: ${r.summary.replace(/\n/g, '\n  ')}`);
     if (r.reason) lines.push(`- Reason: ${r.reason}`);
     if (r.evidence) lines.push(`- Evidence pack (screenshots, console, network): ${r.evidence}`);
     if (r.testUrl) lines.push(`- Test Manager: ${r.testUrl}`);

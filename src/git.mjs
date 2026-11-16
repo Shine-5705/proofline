@@ -16,15 +16,18 @@ export function changedFiles(cwd, since = 'HEAD') {
   const tracked = git(['diff', '--name-only', '--relative', since], cwd) || '';
   const untracked = git(['ls-files', '--others', '--exclude-standard'], cwd) || '';
   return [...new Set(`${tracked}\n${untracked}`.split('\n').map((s) => s.trim()).filter(Boolean))]
-    .filter((f) => !f.startsWith('.proofline/'));
+    .filter((f) => !f.startsWith('.proofline/') && !isKaneArtifact(f));
 }
+
+// Kane CLI writes its recorded replay cache next to each flow (flows/output-<name>/). That is test state, not app code.
+export const isKaneArtifact = (f) => /(^|\/)output-[^/]+\//.test(f);
 
 export function diffStat(cwd, since = 'HEAD') {
   const out = git(['diff', '--numstat', '--relative', since], cwd) || '';
   return out.split('\n').filter(Boolean).map((l) => {
     const [a, r, file] = l.split('\t');
     return { file, added: Number(a) || 0, removed: Number(r) || 0 };
-  }).filter((d) => !d.file.startsWith('.proofline/'));
+  }).filter((d) => !d.file.startsWith('.proofline/') && !isKaneArtifact(d.file));
 }
 
 export function snapshotDiff(cwd) {

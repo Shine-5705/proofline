@@ -39,7 +39,7 @@ command-line agent through `proofline loop`.
 ## Quick start
 
 ```bash
-# 1. Kane CLI + a free TestMu AI account (10,000 credits for a month)
+# 1. Kane CLI + a free TestMu AI account
 npm install -g @testmuai/kane-cli
 kane-cli login --oauth
 

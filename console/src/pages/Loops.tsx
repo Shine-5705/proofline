@@ -122,7 +122,7 @@ export function LoopDetail({ ws, id }: { ws: Workspace; id: string }) {
             <dt>Time to verdict</dt><dd className="num">{duration(total)}</dd>
             <dt>Turns</dt><dd className="num">{loop.iterations.length} of max {loop.maxIterations}</dd>
             <dt>Kane runs</dt><dd className="num">{allRuns.length}</dd>
-            <dt>Credits</dt><dd className="num">{credits ? credits.toLocaleString() : '—'}</dd>
+            <dt>Credits</dt><dd className="num">{credits ? credits.toLocaleString(undefined, { maximumFractionDigits: 1 }) : '—'}</dd>
             <dt>Loop id</dt><dd className="mono faint">{loop.id}</dd>
           </dl>
         </aside>

@@ -94,7 +94,7 @@ export function RunDetail({ ws, id }: { ws: Workspace; id: string }) {
                 {run.steps.map((s) => (
                   <li key={s.key} className={s.status}>
                     <span className="idx">{s.index}</span>
-                    <span className="remark">{s.remark || <span className="faint">(no remark)</span>}</span>
+                    <span className="remark">{s.remark || <span className="faint">(no remark)</span>}{s.actions && s.actions.length > 0 && <span className="actions">{s.actions.join(' · ')}</span>}</span>
                     <span className="faint num">{s.ms != null ? duration(s.ms / 1000) : ''}</span>
                   </li>
                 ))}
@@ -114,7 +114,7 @@ export function RunDetail({ ws, id }: { ws: Workspace; id: string }) {
             <dt>Commit</dt><dd className="mono">{run.git?.sha || '—'}{run.git?.dirty ? ' (uncommitted changes)' : ''}</dd>
             {run.changedFiles?.length > 0 && <><dt>Changed</dt><dd className="mono" style={{ fontSize: 12 }}>{run.changedFiles.join(', ')}</dd></>}
             <dt>Exit code</dt><dd className="num">{run.exitCode ?? '—'}</dd>
-            <dt>Credits</dt><dd className="num">{run.credits != null ? run.credits : '—'}</dd>
+            <dt>Credits</dt><dd className="num">{run.credits != null ? Math.round(run.credits * 10) / 10 : '—'}</dd>
             <dt>kane-cli</dt><dd className="mono">{run.kaneVersion || '—'}</dd>
             {run.testUrl && <><dt>Test Manager</dt><dd><a href={run.testUrl} target="_blank" rel="noreferrer">Open test case ↗</a></dd></>}
             {run.evidence && <><dt>Evidence</dt><dd className="mono" style={{ fontSize: 12 }}>{run.evidence}<div className="faint">kane-cli evidence serve {run.evidence}</div></dd></>}
