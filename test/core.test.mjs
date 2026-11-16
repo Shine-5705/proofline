@@ -127,7 +127,7 @@ test('blocked when kane-cli cannot start (e.g. not signed in)', () => {
   const dir = sandbox(); BAD(dir);
   const r = spawnSync('node', [BIN, 'check'], { cwd: dir, env: env(dir, { FAKE_KANE_NOT_STARTED: '1' }), encoding: 'utf8' });
   assert.equal(r.status, 2);
-  assert.match(r.stdout, /NOT_STARTED/);
+  assert.match(r.stdout, /BLOCKED/);
 });
 
 test('turns kane-cli stderr into a readable start failure', async () => {
@@ -135,4 +135,17 @@ test('turns kane-cli stderr into a readable start failure', async () => {
   const stderr = "Skill update available: not installed → 0.1.4\n\nerror: Not authenticated. Choose one:\n  • Pass credentials inline\n";
   assert.equal(startFailure(stderr), 'Not signed in to TestMu AI. Run: kane-cli login --oauth');
   assert.equal(startFailure('error: Chrome not found\n'), 'Chrome not found');
+});
+
+test('changed files are relative to the project even inside a larger repo', () => {
+  const outer = fs.mkdtempSync(path.join(os.tmpdir(), 'proofline-outer-'));
+  const dir = path.join(outer, 'apps', 'web');
+  fs.mkdirSync(dir, { recursive: true });
+  fs.cpSync(path.join(root, 'examples', 'invoice-app'), dir, { recursive: true });
+  const g = (...a) => spawnSync('git', a, { cwd: outer, encoding: 'utf8' });
+  g('init', '-q'); g('-c', 'user.email=t@t', '-c', 'user.name=t', 'add', '-A'); g('-c', 'user.email=t@t', '-c', 'user.name=t', 'commit', '-qm', 'init');
+  BAD(dir);
+  const r = spawnSync('node', [BIN, 'check', '--changed'], { cwd: dir, env: env(dir), encoding: 'utf8' });
+  assert.match(r.stdout, /verifying 1\/3 flow/);
+  assert.match(r.stdout, /changed: totals\.js/);
 });

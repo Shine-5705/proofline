@@ -13,14 +13,14 @@ export function gitInfo(cwd) {
 
 // Files changed in the working tree relative to HEAD, plus untracked files.
 export function changedFiles(cwd, since = 'HEAD') {
-  const tracked = git(['diff', '--name-only', since], cwd) || '';
+  const tracked = git(['diff', '--name-only', '--relative', since], cwd) || '';
   const untracked = git(['ls-files', '--others', '--exclude-standard'], cwd) || '';
   return [...new Set(`${tracked}\n${untracked}`.split('\n').map((s) => s.trim()).filter(Boolean))]
     .filter((f) => !f.startsWith('.proofline/'));
 }
 
 export function diffStat(cwd, since = 'HEAD') {
-  const out = git(['diff', '--numstat', since], cwd) || '';
+  const out = git(['diff', '--numstat', '--relative', since], cwd) || '';
   return out.split('\n').filter(Boolean).map((l) => {
     const [a, r, file] = l.split('\t');
     return { file, added: Number(a) || 0, removed: Number(r) || 0 };

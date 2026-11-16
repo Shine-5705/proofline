@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "stop": [
+      {
+        "command": "node \"../../bin/proofline.mjs\" hook cursor",
+        "timeout": 900,
+        "loop_limit": 4
+      }
+    ]
+  }
+}

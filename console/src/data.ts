@@ -3,7 +3,7 @@ import type { Readiness, Run, Workspace } from './types';
 
 // Local mode: `proofline ui` serves /api. Hosted mode: falls back to the bundled, clearly-labelled demo workspace.
 async function fetchWorkspace(): Promise<Workspace> {
-  const forceDemo = new URLSearchParams(location.search).has('demo');
+  const forceDemo = import.meta.env.MODE === 'pages' || new URLSearchParams(location.search).has('demo');
   if (!forceDemo) {
     try {
       const r = await fetch('api/workspace', { headers: { accept: 'application/json' } });

@@ -1,0 +1,5 @@
+# proofline
+.proofline/runs/*.ndjson
+.proofline/hook-state.json
+.testmuai/evidence/
+secrets/

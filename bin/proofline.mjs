@@ -47,6 +47,8 @@ async function main() {
   if (cmd === '--version' || cmd === '-V') { console.log(JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url))).version); return; }
   if (cmd === 'init') return init(findRoot(), { url: args.url, agent: args.agent, hooks: args.hooks ? String(args.hooks).split(',') : undefined });
 
+  // Agent hooks may start in another directory; both Cursor and Claude Code export the project root.
+  if (cmd === 'hook') { const dir = process.env.CURSOR_PROJECT_DIR || process.env.CLAUDE_PROJECT_DIR; if (dir && fs.existsSync(dir)) process.chdir(dir); }
   const cfg = loadConfig();
   if (args.agent) cfg.agent = args.agent;
   if (args.headed) cfg.headless = false;

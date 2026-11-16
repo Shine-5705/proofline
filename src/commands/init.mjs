@@ -3,6 +3,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { CONFIG_FILE, DEFAULTS } from '../config.mjs';
 import { c } from '../util.mjs';
+import { fileURLToPath } from 'node:url';
+
+// Installed as a dependency → npx. Used from a checkout (e.g. the bundled example) → node <path to bin>.
+function hookCommand(root, which) {
+  if (fs.existsSync(path.join(root, 'node_modules', '.bin', 'proofline'))) return `npx --no-install proofline hook ${which}`;
+  const bin = fileURLToPath(new URL('../../bin/proofline.mjs', import.meta.url));
+  return `node "${path.relative(root, bin) || bin}" hook ${which}`;
+}
 
 const EXAMPLE_FLOW = (url) => `---
 mode: testing
@@ -49,7 +57,7 @@ export function init(root, opts = {}) {
       d.hooks = d.hooks || {};
       d.hooks.Stop = d.hooks.Stop || [];
       if (!JSON.stringify(d.hooks.Stop).includes('proofline hook')) {
-        d.hooks.Stop.push({ hooks: [{ type: 'command', command: 'npx --no-install proofline hook claude', timeout: 900 }] });
+        d.hooks.Stop.push({ hooks: [{ type: 'command', command: hookCommand(root, 'claude'), timeout: 900 }] });
       }
     });
   }
@@ -58,12 +66,12 @@ export function init(root, opts = {}) {
       d.version = d.version || 1;
       d.hooks = d.hooks || {};
       d.hooks.stop = d.hooks.stop || [];
-      if (!JSON.stringify(d.hooks.stop).includes('proofline hook')) d.hooks.stop.push({ command: 'npx --no-install proofline hook cursor' });
+      if (!JSON.stringify(d.hooks.stop).includes('proofline hook')) d.hooks.stop.push({ command: hookCommand(root, 'cursor'), timeout: 900, loop_limit: opts.maxIterations || 4 });
     });
   }
   if (hooks.includes('git')) {
     const gitHook = path.join(root, '.git', 'hooks', 'pre-push');
-    if (fs.existsSync(path.join(root, '.git')) && writeOnce(gitHook, '#!/bin/sh\nexec npx --no-install proofline hook git\n')) fs.chmodSync(gitHook, 0o755);
+    if (fs.existsSync(path.join(root, '.git')) && writeOnce(gitHook, `#!/bin/sh\nexec ${hookCommand(root, 'git')}\n`)) fs.chmodSync(gitHook, 0o755);
   }
   const gi = path.join(root, '.gitignore');
   const giText = fs.existsSync(gi) ? fs.readFileSync(gi, 'utf8') : '';

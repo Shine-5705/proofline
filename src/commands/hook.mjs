@@ -15,6 +15,8 @@ async function readStdin() {
 
 export async function hook(cfg, store, which) {
   const input = await readStdin();
+  // Cursor reports aborted / errored turns too; only a completed turn should be verified.
+  if (which === 'cursor' && input.status && input.status !== 'completed') { process.stdout.write('{}'); return; }
   const session = input.session_id || input.conversation_id || 'default';
   const st = store.state('hook-state', {});
   const s = st[session] || { attempts: 0, loopId: null };
