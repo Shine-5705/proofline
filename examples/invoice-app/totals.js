@@ -9,7 +9,7 @@ export function totals(invoice) {
   const subtotal = invoice.lines.reduce((a, l) => a + lineAmount(l), 0);
   const discount = Math.round(subtotal * (Number(invoice.discountPct || 0) / 100));
   const taxable = subtotal - discount;
-  const gst = Math.round(taxable * GST_RATE); // GST is charged on the discounted (taxable) amount
+  const gst = Math.round(taxable * GST_RATE);
   return { subtotal, discount, taxable, gst, total: taxable + gst };
 }
 
