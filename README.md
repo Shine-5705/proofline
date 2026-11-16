@@ -51,6 +51,8 @@ drops the repair brief in `.proofline/inbox/`, Grok Bot reads it, edits the code
 Kane. The Claude Code and Cursor stop hooks are implemented and covered by the test suite, but were not exercised in a
 real Claude Code or Cursor session for this run. The bug was planted on purpose by `scripts/scenario.mjs`.
 
+Kane's own screenshots of step 5 before and after the fix: [failed](docs/real-run/screenshots/kane-step5-failed-run_mwjh7dr7f9440d.png), [passed](docs/real-run/screenshots/kane-step5-passed-run_mwjhc1k7a50d40.png).
+
 Credits: the account went from 1,200 to about 868 (about 330 credits). First-time authoring of the 3 flows cost the
 most (about 207 as reported by Kane). After that, Kane replays the recorded steps and only re-reasons about the step
 that changed.
