@@ -1,0 +1,21 @@
+{
+  "name": "proofline",
+  "version": "0.1.0",
+  "description": "Your coding agent doesn't get to say \"done\" until Kane CLI says \"pass\". A verification loop between AI coding agents and Kane CLI, with a local console.",
+  "type": "module",
+  "bin": { "proofline": "bin/proofline.mjs" },
+  "files": ["bin", "src", "hooks", "console/dist", "README.md", "LICENSE"],
+  "engines": { "node": ">=18.17" },
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "console:dev": "npm --prefix console run dev",
+    "console:build": "npm --prefix console run build",
+    "example": "node scripts/serve-example.mjs",
+    "demo": "node scripts/demo.mjs",
+    "seed:demo": "node scripts/seed-demo.mjs"
+  },
+  "keywords": ["kane-cli", "testmu", "ai-agents", "claude-code", "cursor", "codex", "e2e", "verification"],
+  "author": "Shine Gupta <Shine-5705@users.noreply.github.com>",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/Shine-5705/proofline.git" }
+}

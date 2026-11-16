@@ -1,0 +1,9 @@
+node_modules/
+console/node_modules/
+site/
+.proofline/
+examples/**/.proofline/
+.testmuai/evidence/
+secrets/
+*.log
+.DS_Store

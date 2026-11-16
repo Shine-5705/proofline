@@ -1,0 +1,5026 @@
+{
+  "mode": "demo",
+  "generatedAt": "2026-11-16T14:00:00.000Z",
+  "project": {
+    "name": "tally-invoices",
+    "baseUrl": "http://localhost:4173",
+    "agent": "claude",
+    "maxIterations": 4,
+    "flowsDir": "flows"
+  },
+  "flows": [
+    {
+      "id": "create_invoice",
+      "file": "flows/create_invoice_test.md",
+      "title": "Create an invoice with a discount",
+      "tags": [
+        "smoke",
+        "billing"
+      ],
+      "steps": [
+        {
+          "title": "Open a fresh workspace",
+          "text": "Open http://localhost:4173/#/reset and verify the Invoices heading is visible."
+        },
+        {
+          "title": "Start a new invoice",
+          "text": "Click \"New invoice\". Type \"Acme Robotics\" in the Client field."
+        },
+        {
+          "title": "Add two line items",
+          "text": "In line 1 enter item \"Design sprint\", quantity 2, rate 15000. Click \"Add line\". In line 2 enter item \"QA pass\", quantity 1, rate 5000."
+        },
+        {
+          "title": "Apply a discount",
+          "text": "Set Discount (%) to 10 and click outside the field."
+        },
+        {
+          "title": "Check the totals",
+          "text": "Verify the summary shows Subtotal ₹35,000, Discount − ₹3,500, GST 18% ₹5,670 and Total ₹37,170."
+        },
+        {
+          "title": "Save",
+          "text": "Click \"Save invoice\". Verify the page shows \"Acme Robotics\" with status Draft and Total ₹37,170."
+        }
+      ],
+      "covers": [
+        "totals.js",
+        "app.js"
+      ],
+      "recorded": true
+    },
+    {
+      "id": "mark_paid",
+      "file": "flows/mark_paid_test.md",
+      "title": "Mark a sent invoice as paid",
+      "tags": [
+        "smoke",
+        "billing"
+      ],
+      "steps": [
+        {
+          "title": "Open the invoice list",
+          "text": "Open http://localhost:4173/#/reset and verify the Invoices heading is visible."
+        },
+        {
+          "title": "Open Kestrel Logistics",
+          "text": "Click the row for \"Kestrel Logistics\" (INV-0003). Verify its status is Sent."
+        },
+        {
+          "title": "Record payment",
+          "text": "Click \"Mark as paid\". Verify the status badge now reads Paid and the \"Mark as paid\" button is gone."
+        },
+        {
+          "title": "It sticks in the list",
+          "text": "Click \"Invoices\" in the top navigation, choose \"Paid\" in the status filter, and verify \"Kestrel Logistics\" is listed."
+        }
+      ],
+      "covers": [
+        "app.js",
+        "data.js"
+      ],
+      "recorded": true
+    },
+    {
+      "id": "search_filter",
+      "file": "flows/search_filter_test.md",
+      "title": "Search and filter invoices",
+      "tags": [
+        "list"
+      ],
+      "steps": [
+        {
+          "title": "Open the invoice list",
+          "text": "Open http://localhost:4173/#/reset and verify 4 invoices are listed."
+        },
+        {
+          "title": "Search by client",
+          "text": "Type \"northwind\" in the Search client box. Verify exactly 2 rows are shown and both are \"Northwind Traders\"."
+        },
+        {
+          "title": "Narrow by status",
+          "text": "Choose \"Draft\" in the status filter. Verify exactly 1 row is shown: INV-0004."
+        },
+        {
+          "title": "No results",
+          "text": "Clear the search box and type \"zzz\". Verify the message \"No invoices match\" is visible."
+        }
+      ],
+      "covers": [
+        "app.js",
+        "data.js"
+      ],
+      "recorded": true
+    }
+  ],
+  "runs": [
+    {
+      "id": "run_demo050",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "8b04de7",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-16T11:08:43.589Z",
+      "endedAt": "2026-11-16T11:09:03.074Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 19.485270264838014,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 954
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 2228
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 2767
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 2342
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 2863
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 2891
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo051",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "8b04de7",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-16T09:19:20.283Z",
+      "endedAt": "2026-11-16T09:19:33.420Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 13.137061955371435,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 2138
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 2627
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 2090
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 1783
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo053",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "5e8817f",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-16T08:24:40.079Z",
+      "endedAt": "2026-11-16T08:24:50.115Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 10.036410654116612,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 2213
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 1271
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 1380
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 1172
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo054",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "0d2f9b4",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-16T07:50:49.919Z",
+      "endedAt": "2026-11-16T07:50:59.038Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 9.11930435068873,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1699
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 1816
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 1189
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 1256
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo048",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "5e8817f",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-16T07:34:27.855Z",
+      "endedAt": "2026-11-16T07:34:44.864Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 17.009053371108628,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 2893
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 2785
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 2770
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 2650
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo049",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "e19b0c6",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-16T07:18:11.417Z",
+      "endedAt": "2026-11-16T07:18:30.977Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 19.559189056438946,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 2887
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 1275
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 2844
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 2415
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 2777
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 1974
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo052",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "c71e5a0",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-16T06:49:36.178Z",
+      "endedAt": "2026-11-16T06:49:49.908Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 13.73006032123466,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1486
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 2312
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 2169
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 3058
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo075",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "hook:cursor",
+      "loopId": "loop_demo08",
+      "iteration": 1,
+      "changedFiles": [
+        "app.js"
+      ],
+      "git": {
+        "sha": "8b04de7",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-15T17:03:30.063Z",
+      "endedAt": "2026-11-15T17:04:29.112Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 59.04933150288199,
+      "credits": 43,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 17820
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 11374
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 12619
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 13930
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo074",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "hook:cursor",
+      "loopId": "loop_demo08",
+      "iteration": 1,
+      "changedFiles": [
+        "app.js"
+      ],
+      "git": {
+        "sha": "0d2f9b4",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-15T17:02:40.836Z",
+      "endedAt": "2026-11-15T17:03:28.563Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 47.72681116835159,
+      "credits": 50,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 7923
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 16671
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 7915
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 10127
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo073",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "hook:cursor",
+      "loopId": "loop_demo08",
+      "iteration": 1,
+      "changedFiles": [
+        "app.js"
+      ],
+      "git": {
+        "sha": "a64c3e1",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-15T17:01:14.502Z",
+      "endedAt": "2026-11-15T17:02:39.336Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 84.83339846910275,
+      "credits": 57,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 10864
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 15242
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 14109
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 13577
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 7882
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 17165
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo072",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "hook:cursor",
+      "loopId": "loop_demo07",
+      "iteration": 1,
+      "changedFiles": [
+        "app.js"
+      ],
+      "git": {
+        "sha": "3f9a1c2",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-15T16:02:09.920Z",
+      "endedAt": "2026-11-15T16:02:10.720Z",
+      "status": "not_started",
+      "exitCode": 2,
+      "summary": null,
+      "reason": "Not logged in. Run: kane-cli login --oauth",
+      "duration": 0.8,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo044",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "3f9a1c2",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-15T12:28:35.539Z",
+      "endedAt": "2026-11-15T12:28:50.177Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 14.63803834499374,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 2387
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 1892
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 2153
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 1790
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 2037
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 1180
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo047",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "c71e5a0",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-15T11:37:05.920Z",
+      "endedAt": "2026-11-15T11:37:23.154Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 17.23363591603592,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 2634
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 1473
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 2872
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 2771
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 1631
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 1956
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo045",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "e19b0c6",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-15T10:14:34.649Z",
+      "endedAt": "2026-11-15T10:14:45.640Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 10.991324828071205,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 2372
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 1188
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 1020
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 904
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo043",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "e19b0c6",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-15T09:53:44.747Z",
+      "endedAt": "2026-11-15T09:54:00.999Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 16.252103417285767,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 3120
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 2672
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 3113
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 2537
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo046",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "0d2f9b4",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-15T06:51:17.243Z",
+      "endedAt": "2026-11-15T06:51:35.204Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 17.96055849858772,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 1825
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 2989
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 2733
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 927
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 3185
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 1373
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo071",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "hook:claude",
+      "loopId": "loop_demo06",
+      "iteration": 4,
+      "changedFiles": [
+        "app.js",
+        "data.js"
+      ],
+      "git": {
+        "sha": "3f9a1c2",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-14T17:08:23.037Z",
+      "endedAt": "2026-11-14T17:09:24.355Z",
+      "status": "failed",
+      "exitCode": 1,
+      "summary": "Assertion failed",
+      "reason": "Paid filter still empty after reload; the v1 → v2 migration runs on every load and overwrites the saved status.",
+      "duration": 61.31793696307621,
+      "credits": 54,
+      "testUrl": null,
+      "failedStep": {
+        "index": 4,
+        "remark": "Paid filter still empty after reload; the v1 → v2 migration runs on every load and overwrites the saved status."
+      },
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 12281
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 16025
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 14494
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "failed",
+          "remark": "Paid filter still empty after reload; the v1 → v2 migration runs on every load and overwrites the saved status.",
+          "ms": 15489
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo070",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "hook:claude",
+      "loopId": "loop_demo06",
+      "iteration": 3,
+      "changedFiles": [
+        "app.js",
+        "data.js"
+      ],
+      "git": {
+        "sha": "7aa2d53",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-14T17:06:13.527Z",
+      "endedAt": "2026-11-14T17:07:04.354Z",
+      "status": "failed",
+      "exitCode": 1,
+      "summary": "Assertion failed",
+      "reason": "Paid filter still empty after reload; the v1 → v2 migration runs on every load and overwrites the saved status.",
+      "duration": 50.82719858216317,
+      "credits": 50,
+      "testUrl": null,
+      "failedStep": {
+        "index": 4,
+        "remark": "Paid filter still empty after reload; the v1 → v2 migration runs on every load and overwrites the saved status."
+      },
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 15220
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 17445
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 6871
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "failed",
+          "remark": "Paid filter still empty after reload; the v1 → v2 migration runs on every load and overwrites the saved status.",
+          "ms": 8175
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo069",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "hook:claude",
+      "loopId": "loop_demo06",
+      "iteration": 2,
+      "changedFiles": [
+        "app.js",
+        "data.js"
+      ],
+      "git": {
+        "sha": "3f9a1c2",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-14T17:02:47.411Z",
+      "endedAt": "2026-11-14T17:03:38.675Z",
+      "status": "failed",
+      "exitCode": 1,
+      "summary": "Assertion failed",
+      "reason": "After marking INV-0003 paid and returning to the list, the Paid filter shows no rows: status is written to the old storage key.",
+      "duration": 51.2630936506554,
+      "credits": 59,
+      "testUrl": null,
+      "failedStep": {
+        "index": 4,
+        "remark": "After marking INV-0003 paid and returning to the list, the Paid filter shows no rows: status is written to the old storage key."
+      },
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 7693
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 15123
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 9685
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "failed",
+          "remark": "After marking INV-0003 paid and returning to the list, the Paid filter shows no rows: status is written to the old storage key.",
+          "ms": 13495
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo068",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "hook:claude",
+      "loopId": "loop_demo06",
+      "iteration": 1,
+      "changedFiles": [
+        "app.js",
+        "data.js"
+      ],
+      "git": {
+        "sha": "5e8817f",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-14T17:00:46.320Z",
+      "endedAt": "2026-11-14T17:01:29.245Z",
+      "status": "failed",
+      "exitCode": 1,
+      "summary": "Assertion failed",
+      "reason": "After marking INV-0003 paid and returning to the list, the Paid filter shows no rows: status is written to the old storage key.",
+      "duration": 42.92510508755553,
+      "credits": 44,
+      "testUrl": null,
+      "failedStep": {
+        "index": 4,
+        "remark": "After marking INV-0003 paid and returning to the list, the Paid filter shows no rows: status is written to the old storage key."
+      },
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 9438
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 6340
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 16088
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "failed",
+          "remark": "After marking INV-0003 paid and returning to the list, the Paid filter shows no rows: status is written to the old storage key.",
+          "ms": 7340
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo041",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "a64c3e1",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-14T12:23:03.902Z",
+      "endedAt": "2026-11-14T12:23:21.237Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 17.334512599189537,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 3064
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 2900
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 3100
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 1537
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 1356
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 968
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo042",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "5e8817f",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-14T10:24:54.481Z",
+      "endedAt": "2026-11-14T10:25:08.794Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 14.313476965528203,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 1422
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 1026
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 1002
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 1115
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 2348
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 1976
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo037",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "8b04de7",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-14T08:13:10.427Z",
+      "endedAt": "2026-11-14T08:13:21.149Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 10.721761891927926,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1004
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 2311
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 1417
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 2237
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo038",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "e19b0c6",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-14T07:57:50.731Z",
+      "endedAt": "2026-11-14T07:58:02.896Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 12.164168734071854,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 1451
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 2983
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 1021
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 2489
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo039",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "e19b0c6",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-14T06:33:45.476Z",
+      "endedAt": "2026-11-14T06:34:00.812Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 15.335879741783664,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 3015
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 2052
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 2793
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 1877
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo040",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "7aa2d53",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-14T05:44:14.565Z",
+      "endedAt": "2026-11-14T05:44:26.748Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 12.182948970804897,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1338
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 2555
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 1256
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 1188
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo067",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "hook:claude",
+      "loopId": "loop_demo05",
+      "iteration": 3,
+      "changedFiles": [
+        "app.js"
+      ],
+      "git": {
+        "sha": "5e8817f",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-13T18:08:08.368Z",
+      "endedAt": "2026-11-13T18:08:22.908Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 14.540535119878843,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1964
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 2815
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 3156
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 2392
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo066",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "hook:claude",
+      "loopId": "loop_demo05",
+      "iteration": 2,
+      "changedFiles": [
+        "app.js"
+      ],
+      "git": {
+        "sha": "a64c3e1",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-13T18:04:35.767Z",
+      "endedAt": "2026-11-13T18:05:29.440Z",
+      "status": "failed",
+      "exitCode": 1,
+      "summary": "Assertion failed",
+      "reason": "Message reads \"No results\" instead of \"No invoices match\".",
+      "duration": 53.67382131528101,
+      "credits": 61,
+      "testUrl": null,
+      "failedStep": {
+        "index": 4,
+        "remark": "Message reads \"No results\" instead of \"No invoices match\"."
+      },
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 11185
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 13621
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 12049
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "failed",
+          "remark": "Message reads \"No results\" instead of \"No invoices match\".",
+          "ms": 12523
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo065",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "hook:claude",
+      "loopId": "loop_demo05",
+      "iteration": 1,
+      "changedFiles": [
+        "app.js"
+      ],
+      "git": {
+        "sha": "c71e5a0",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-13T18:02:20.844Z",
+      "endedAt": "2026-11-13T18:03:05.932Z",
+      "status": "failed",
+      "exitCode": 1,
+      "summary": "Assertion failed",
+      "reason": "Typed \"zzz\": the table header is still shown with zero rows and no \"No invoices match\" message.",
+      "duration": 45.088155044280064,
+      "credits": 40,
+      "testUrl": null,
+      "failedStep": {
+        "index": 4,
+        "remark": "Typed \"zzz\": the table header is still shown with zero rows and no \"No invoices match\" message."
+      },
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 7021
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 9672
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 13375
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "failed",
+          "remark": "Typed \"zzz\": the table header is still shown with zero rows and no \"No invoices match\" message.",
+          "ms": 11068
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo033",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "c71e5a0",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-13T09:31:40.530Z",
+      "endedAt": "2026-11-13T09:31:53.981Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 13.451175640218974,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1331
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 2255
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 1432
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 2967
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo036",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "e19b0c6",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-13T06:30:17.300Z",
+      "endedAt": "2026-11-13T06:30:35.350Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 18.050582160285014,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 2628
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 1195
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 1662
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 2544
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 3097
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 2160
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo034",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "3f9a1c2",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-13T05:58:51.472Z",
+      "endedAt": "2026-11-13T05:59:02.396Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 10.923828686833303,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1608
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 3018
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 903
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 1203
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo035",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "5e8817f",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-13T05:49:01.906Z",
+      "endedAt": "2026-11-13T05:49:13.536Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 11.63050156216626,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1388
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 3079
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 2510
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 1303
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo064",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "loop",
+      "loopId": "loop_demo04",
+      "iteration": 2,
+      "changedFiles": [
+        "app.js"
+      ],
+      "git": {
+        "sha": "e19b0c6",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-12T20:05:12.593Z",
+      "endedAt": "2026-11-12T20:05:23.583Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 10.990822786151815,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 1457
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 1927
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 1895
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 1009
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo063",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "loop",
+      "loopId": "loop_demo04",
+      "iteration": 2,
+      "changedFiles": [
+        "app.js"
+      ],
+      "git": {
+        "sha": "8b04de7",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-12T20:04:56.735Z",
+      "endedAt": "2026-11-12T20:05:11.093Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 14.357936054018761,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1608
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 2612
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 3058
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 2213
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo062",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "loop",
+      "loopId": "loop_demo04",
+      "iteration": 1,
+      "changedFiles": [
+        "app.js"
+      ],
+      "git": {
+        "sha": "e19b0c6",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-12T20:01:24.742Z",
+      "endedAt": "2026-11-12T20:02:14.074Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 49.3318043971154,
+      "credits": 55,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 8620
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 13561
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 12810
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 11273
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo061",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "loop",
+      "loopId": "loop_demo04",
+      "iteration": 1,
+      "changedFiles": [
+        "app.js"
+      ],
+      "git": {
+        "sha": "5e8817f",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-12T20:00:45.459Z",
+      "endedAt": "2026-11-12T20:01:23.242Z",
+      "status": "failed",
+      "exitCode": 1,
+      "summary": "Assertion failed",
+      "reason": "After typing \"northwind\" the box contains only \"n\": the list re-rendered and the search box lost focus.",
+      "duration": 37.78292147626399,
+      "credits": 53,
+      "testUrl": null,
+      "failedStep": {
+        "index": 2,
+        "remark": "After typing \"northwind\" the box contains only \"n\": the list re-rendered and the search box lost focus."
+      },
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 14475
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "failed",
+          "remark": "After typing \"northwind\" the box contains only \"n\": the list re-rendered and the search box lost focus.",
+          "ms": 17771
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo026",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "a64c3e1",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-12T12:01:21.677Z",
+      "endedAt": "2026-11-12T12:01:32.801Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 11.124648260800004,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 2286
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 1292
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 1080
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 1527
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo029",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "7aa2d53",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-12T09:01:27.401Z",
+      "endedAt": "2026-11-12T09:01:42.137Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 14.7369252995527,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 2205
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 2560
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 2430
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 2355
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo031",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "3f9a1c2",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-12T07:19:58.663Z",
+      "endedAt": "2026-11-12T07:20:12.690Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 14.026449060199527,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 3097
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 2710
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 1376
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 1448
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo032",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "e19b0c6",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-12T06:35:54.798Z",
+      "endedAt": "2026-11-12T06:36:08.983Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 14.184166067653413,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 2536
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 2133
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 1919
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 2906
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo028",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "c71e5a0",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-12T05:36:26.898Z",
+      "endedAt": "2026-11-12T05:36:47.321Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 20.422489801982646,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 2657
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 1905
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 2866
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 3114
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 2742
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 2422
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo030",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "c71e5a0",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-12T05:05:38.536Z",
+      "endedAt": "2026-11-12T05:05:51.762Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 13.22564076281229,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 2020
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 3102
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 3143
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 1723
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo027",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "3f9a1c2",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-12T05:02:58.082Z",
+      "endedAt": "2026-11-12T05:03:07.620Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 9.538392338596466,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 1851
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 1623
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 910
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 914
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo060",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "hook:claude",
+      "loopId": "loop_demo03",
+      "iteration": 1,
+      "changedFiles": [
+        "app.js"
+      ],
+      "git": {
+        "sha": "5e8817f",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-11T16:02:06.956Z",
+      "endedAt": "2026-11-11T16:02:54.811Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 47.855391635683546,
+      "credits": 56,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 9680
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 6340
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 14817
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 12176
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo059",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "hook:claude",
+      "loopId": "loop_demo03",
+      "iteration": 1,
+      "changedFiles": [
+        "app.js"
+      ],
+      "git": {
+        "sha": "a64c3e1",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-11T16:01:08.706Z",
+      "endedAt": "2026-11-11T16:02:05.456Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 56.75025000297337,
+      "credits": 63,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 12415
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 15318
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 8226
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 15742
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo021",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "c71e5a0",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-11T10:06:01.347Z",
+      "endedAt": "2026-11-11T10:06:12.575Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 11.227791141439598,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 960
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 1587
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 2146
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 1366
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo020",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "a64c3e1",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-11T09:08:36.321Z",
+      "endedAt": "2026-11-11T09:08:48.738Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 12.417567157497892,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1927
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 1282
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 2424
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 2100
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo023",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "3f9a1c2",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-11T08:11:29.971Z",
+      "endedAt": "2026-11-11T08:11:39.545Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 9.573701287469222,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 2966
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 985
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 1213
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 1085
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo024",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "0d2f9b4",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-11T08:09:34.782Z",
+      "endedAt": "2026-11-11T08:09:50.538Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 15.756868733643493,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 1342
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 1207
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 1365
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 2452
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 1459
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 1950
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo022",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "3f9a1c2",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-11T07:43:24.322Z",
+      "endedAt": "2026-11-11T07:43:45.207Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 20.885663035655703,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 1073
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 2678
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 2793
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 3006
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 2993
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 2466
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo025",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "8b04de7",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-11T06:48:18.897Z",
+      "endedAt": "2026-11-11T06:48:31.906Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 13.009094978054565,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1858
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 1041
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 1429
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 2758
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo058",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "hook:cursor",
+      "loopId": "loop_demo02",
+      "iteration": 2,
+      "changedFiles": [
+        "app.js"
+      ],
+      "git": {
+        "sha": "a64c3e1",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-10T19:04:03.938Z",
+      "endedAt": "2026-11-10T19:04:21.863Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 17.925264775012742,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 3188
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 986
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 1137
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 1608
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 2869
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 2967
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo057",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "hook:cursor",
+      "loopId": "loop_demo02",
+      "iteration": 1,
+      "changedFiles": [
+        "app.js"
+      ],
+      "git": {
+        "sha": "a64c3e1",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-10T19:02:02.123Z",
+      "endedAt": "2026-11-10T19:02:43.566Z",
+      "status": "failed",
+      "exitCode": 1,
+      "summary": "Assertion failed",
+      "reason": "Line 1 quantity reset to 1 after typing the rate; subtotal shows ₹20,000 instead of ₹35,000. The form re-renders on every change and drops focus.",
+      "duration": 41.44309691229514,
+      "credits": 63,
+      "testUrl": null,
+      "failedStep": {
+        "index": 3,
+        "remark": "Line 1 quantity reset to 1 after typing the rate; subtotal shows ₹20,000 instead of ₹35,000. The form re-renders on every change and drops focus."
+      },
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 7447
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 13487
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "failed",
+          "remark": "Line 1 quantity reset to 1 after typing the rate; subtotal shows ₹20,000 instead of ₹35,000. The form re-renders on every change and drops focus.",
+          "ms": 14836
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo016",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "7aa2d53",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-10T12:44:17.346Z",
+      "endedAt": "2026-11-10T12:44:30.108Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 12.76218280520252,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 3014
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 1201
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 2482
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 2954
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo015",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "5e8817f",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-10T10:52:11.384Z",
+      "endedAt": "2026-11-10T10:52:23.755Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 12.371108778013898,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1381
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 2198
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 1020
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 2670
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo018",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "8b04de7",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-10T09:45:39.338Z",
+      "endedAt": "2026-11-10T09:45:56.657Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 17.319257028548165,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 2185
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 1708
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 2329
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 2590
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 1671
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 2568
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo019",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "a64c3e1",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-10T05:06:58.121Z",
+      "endedAt": "2026-11-10T05:07:15.840Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 17.719334867591193,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 2355
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 2906
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 3012
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 1359
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 2384
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 1211
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo017",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "0d2f9b4",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-10T05:03:29.134Z",
+      "endedAt": "2026-11-10T05:03:43.349Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 14.21564692694631,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 2659
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 1865
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 1471
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 2574
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo014",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "7aa2d53",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-09T12:58:34.470Z",
+      "endedAt": "2026-11-09T12:58:47.338Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 12.868402106946522,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 2365
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 3021
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 948
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 2970
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo010",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "8b04de7",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-09T12:06:41.071Z",
+      "endedAt": "2026-11-09T12:06:52.307Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 11.23561545882589,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1079
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 1836
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 1253
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 1079
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo011",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "7aa2d53",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-09T11:50:45.518Z",
+      "endedAt": "2026-11-09T11:51:00.626Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 15.107723428495099,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 2264
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 1217
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 3020
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 2935
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo009",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "e19b0c6",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-09T09:49:34.403Z",
+      "endedAt": "2026-11-09T09:49:45.671Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 11.268295481841218,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1478
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 2250
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 1706
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 1660
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo013",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "3f9a1c2",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-09T09:05:06.408Z",
+      "endedAt": "2026-11-09T09:05:19.668Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 13.26083186279369,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1448
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 2929
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 1441
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 1760
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo012",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "8b04de7",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-09T06:54:39.518Z",
+      "endedAt": "2026-11-09T06:54:48.743Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 9.22452026708169,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 924
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 1471
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 1075
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 904
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo056",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "hook:claude",
+      "loopId": "loop_demo01",
+      "iteration": 2,
+      "changedFiles": [
+        "totals.js"
+      ],
+      "git": {
+        "sha": "0d2f9b4",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-08T17:03:20.940Z",
+      "endedAt": "2026-11-08T17:04:35.651Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 74.7111070410768,
+      "credits": 61,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 8435
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 11249
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 8396
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 13292
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 12937
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 15048
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo055",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "hook:claude",
+      "loopId": "loop_demo01",
+      "iteration": 1,
+      "changedFiles": [
+        "totals.js",
+        "app.js"
+      ],
+      "git": {
+        "sha": "c71e5a0",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-08T17:01:25.103Z",
+      "endedAt": "2026-11-08T17:02:20.859Z",
+      "status": "failed",
+      "exitCode": 1,
+      "summary": "Assertion failed",
+      "reason": "Expected GST 18% ₹5,670 but the summary shows ₹6,300. GST appears to be computed before the discount.",
+      "duration": 55.75578434988893,
+      "credits": 46,
+      "testUrl": null,
+      "failedStep": {
+        "index": 5,
+        "remark": "Expected GST 18% ₹5,670 but the summary shows ₹6,300. GST appears to be computed before the discount."
+      },
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 7097
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 13611
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 10843
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 11490
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "failed",
+          "remark": "Expected GST 18% ₹5,670 but the summary shows ₹6,300. GST appears to be computed before the discount.",
+          "ms": 7194
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo005",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "c71e5a0",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-08T11:46:45.892Z",
+      "endedAt": "2026-11-08T11:47:03.264Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 17.37286841628694,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 1885
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 1578
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 3056
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 2182
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 2577
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 2919
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo008",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "hook:git",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "a64c3e1",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-08T11:08:02.959Z",
+      "endedAt": "2026-11-08T11:08:17.065Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 14.106730579460379,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 1953
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 2885
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 2361
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 2359
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo006",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "5e8817f",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-08T08:55:46.525Z",
+      "endedAt": "2026-11-08T08:55:57.660Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 11.134367065098308,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 1344
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 2991
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 1026
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 1741
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo007",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "a64c3e1",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-08T08:52:52.180Z",
+      "endedAt": "2026-11-08T08:53:03.175Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 10.995714939060488,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 1833
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 1552
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 1738
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 1875
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo004",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "watch",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "e19b0c6",
+        "dirty": true
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-08T07:29:31.158Z",
+      "endedAt": "2026-11-08T07:29:45.135Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 13.977158833394832,
+      "credits": 0,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 2228
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 2998
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 2989
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 1756
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo003",
+      "flowId": "search_filter",
+      "flowFile": "flows/search_filter_test.md",
+      "flowTitle": "Search and filter invoices",
+      "trigger": "manual",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "e19b0c6",
+        "dirty": false
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-07T14:06:00.000Z",
+      "endedAt": "2026-11-07T14:06:52.613Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 52.613205463613944,
+      "credits": 41,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; 4 invoices are listed",
+          "ms": 14377
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Typed \"northwind\"; 2 rows, both Northwind Traders",
+          "ms": 6647
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Chose Draft; 1 row: INV-0004",
+          "ms": 14207
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Typed \"zzz\"; \"No invoices match\" is visible",
+          "ms": 11615
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo002",
+      "flowId": "mark_paid",
+      "flowFile": "flows/mark_paid_test.md",
+      "flowTitle": "Mark a sent invoice as paid",
+      "trigger": "manual",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "c71e5a0",
+        "dirty": false
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-07T14:03:00.000Z",
+      "endedAt": "2026-11-07T14:03:59.886Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 59.886014321076686,
+      "credits": 56,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened the list; the Invoices heading is visible",
+          "ms": 12514
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Opened INV-0003 Kestrel Logistics; status is Sent",
+          "ms": 14214
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Clicked Mark as paid; badge reads Paid and the button is gone",
+          "ms": 13631
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Filtered by Paid; Kestrel Logistics is listed",
+          "ms": 15801
+        }
+      ],
+      "source": "demo"
+    },
+    {
+      "id": "run_demo001",
+      "flowId": "create_invoice",
+      "flowFile": "flows/create_invoice_test.md",
+      "flowTitle": "Create an invoice with a discount",
+      "trigger": "manual",
+      "loopId": null,
+      "iteration": null,
+      "changedFiles": [],
+      "git": {
+        "sha": "e19b0c6",
+        "dirty": false
+      },
+      "kaneVersion": "0.10.4",
+      "startedAt": "2026-11-07T14:00:00.000Z",
+      "endedAt": "2026-11-07T14:01:12.180Z",
+      "status": "passed",
+      "exitCode": 0,
+      "summary": "All steps passed",
+      "reason": null,
+      "duration": 72.18093694050421,
+      "credits": 58,
+      "testUrl": null,
+      "failedStep": null,
+      "steps": [
+        {
+          "key": "1",
+          "index": 1,
+          "status": "done",
+          "remark": "Opened /#/reset; the Invoices heading is visible",
+          "ms": 6001
+        },
+        {
+          "key": "2",
+          "index": 2,
+          "status": "done",
+          "remark": "Clicked New invoice and typed \"Acme Robotics\" into Client",
+          "ms": 17049
+        },
+        {
+          "key": "3",
+          "index": 3,
+          "status": "done",
+          "remark": "Filled two line items: Design sprint 2 × 15000, QA pass 1 × 5000",
+          "ms": 9471
+        },
+        {
+          "key": "4",
+          "index": 4,
+          "status": "done",
+          "remark": "Set Discount (%) to 10",
+          "ms": 8527
+        },
+        {
+          "key": "5",
+          "index": 5,
+          "status": "done",
+          "remark": "Summary shows Subtotal ₹35,000, Discount − ₹3,500, GST ₹5,670, Total ₹37,170",
+          "ms": 14752
+        },
+        {
+          "key": "6",
+          "index": 6,
+          "status": "done",
+          "remark": "Saved; page shows Acme Robotics · Draft · ₹37,170",
+          "ms": 12393
+        }
+      ],
+      "source": "demo"
+    }
+  ],
+  "loops": [
+    {
+      "id": "loop_demo08",
+      "task": "Add a \"Duplicate invoice\" action",
+      "agent": "cursor",
+      "via": "hook:cursor",
+      "startedAt": "2026-11-15T17:00:00.000Z",
+      "endedAt": "2026-11-15T17:04:34.612Z",
+      "status": "green",
+      "iterations": [
+        {
+          "n": 1,
+          "startedAt": "2026-11-15T17:00:00.000Z",
+          "prompt": "task",
+          "diff": [
+            {
+              "file": "app.js",
+              "added": 22,
+              "removed": 0
+            }
+          ],
+          "runIds": [
+            "run_demo073",
+            "run_demo074",
+            "run_demo075"
+          ],
+          "verdict": "green",
+          "endedAt": "2026-11-15T17:04:30.612Z"
+        }
+      ],
+      "maxIterations": 4,
+      "source": "demo"
+    },
+    {
+      "id": "loop_demo07",
+      "task": "Add a \"Duplicate invoice\" action",
+      "agent": "cursor",
+      "via": "hook:cursor",
+      "startedAt": "2026-11-15T16:00:00.000Z",
+      "endedAt": "2026-11-15T16:02:16.220Z",
+      "status": "blocked",
+      "iterations": [
+        {
+          "n": 1,
+          "startedAt": "2026-11-15T16:00:00.000Z",
+          "prompt": "task",
+          "diff": [
+            {
+              "file": "app.js",
+              "added": 22,
+              "removed": 0
+            }
+          ],
+          "runIds": [
+            "run_demo072"
+          ],
+          "verdict": "blocked",
+          "endedAt": "2026-11-15T16:02:12.220Z"
+        }
+      ],
+      "maxIterations": 4,
+      "source": "demo"
+    },
+    {
+      "id": "loop_demo06",
+      "task": "Move invoice storage to a v2 schema",
+      "agent": "claude",
+      "via": "hook:claude",
+      "startedAt": "2026-11-14T17:00:00.000Z",
+      "endedAt": "2026-11-14T17:09:29.855Z",
+      "status": "gave_up",
+      "iterations": [
+        {
+          "n": 1,
+          "startedAt": "2026-11-14T17:00:00.000Z",
+          "prompt": "task",
+          "diff": [
+            {
+              "file": "app.js",
+              "added": 9,
+              "removed": 3
+            },
+            {
+              "file": "data.js",
+              "added": 4,
+              "removed": 4
+            }
+          ],
+          "runIds": [
+            "run_demo068"
+          ],
+          "verdict": "red",
+          "endedAt": "2026-11-14T17:01:30.745Z",
+          "brief": "# Proofline: Kane CLI rejected this change\n\nOriginal task: Move invoice storage to a v2 schema\n\nAttempt 1 of 4.\n\nKane CLI ran 1 flow(s) against the app in a real browser. 1 did not pass.\n\n## Mark a sent invoice as paid (flows/mark_paid_test.md)\n- Verdict: failed (exit 1)\n- Failing step 4: After marking INV-0003 paid and returning to the list, the Paid filter shows no rows: status is written to the old storage key.\n- Evidence pack (screenshots, console, network): .testmuai/evidence/…\n\n## What to do\n1. Read the failing step and fix the application code so the flow passes. The flow describes intended behaviour.\n2. Only edit a *_test.md flow if the requirement itself changed; say so explicitly if you do.\n3. Stop when you are done editing. Proofline re-runs Kane CLI on the affected flows automatically."
+        },
+        {
+          "n": 2,
+          "startedAt": "2026-11-14T17:01:34.745Z",
+          "prompt": "repair-brief",
+          "diff": [
+            {
+              "file": "app.js",
+              "added": 10,
+              "removed": 3
+            },
+            {
+              "file": "data.js",
+              "added": 4,
+              "removed": 4
+            }
+          ],
+          "runIds": [
+            "run_demo069"
+          ],
+          "verdict": "red",
+          "endedAt": "2026-11-14T17:03:40.175Z",
+          "brief": "# Proofline: Kane CLI rejected this change\n\nOriginal task: Move invoice storage to a v2 schema\n\nAttempt 2 of 4.\n\nKane CLI ran 1 flow(s) against the app in a real browser. 1 did not pass.\n\n## Mark a sent invoice as paid (flows/mark_paid_test.md)\n- Verdict: failed (exit 1)\n- Failing step 4: After marking INV-0003 paid and returning to the list, the Paid filter shows no rows: status is written to the old storage key.\n- Evidence pack (screenshots, console, network): .testmuai/evidence/…\n\n## What to do\n1. Read the failing step and fix the application code so the flow passes. The flow describes intended behaviour.\n2. Only edit a *_test.md flow if the requirement itself changed; say so explicitly if you do.\n3. Stop when you are done editing. Proofline re-runs Kane CLI on the affected flows automatically."
+        },
+        {
+          "n": 3,
+          "startedAt": "2026-11-14T17:03:44.175Z",
+          "prompt": "repair-brief",
+          "diff": [
+            {
+              "file": "app.js",
+              "added": 11,
+              "removed": 3
+            },
+            {
+              "file": "data.js",
+              "added": 4,
+              "removed": 4
+            }
+          ],
+          "runIds": [
+            "run_demo070"
+          ],
+          "verdict": "red",
+          "endedAt": "2026-11-14T17:07:05.854Z",
+          "brief": "# Proofline: Kane CLI rejected this change\n\nOriginal task: Move invoice storage to a v2 schema\n\nAttempt 3 of 4.\n\nKane CLI ran 1 flow(s) against the app in a real browser. 1 did not pass.\n\n## Mark a sent invoice as paid (flows/mark_paid_test.md)\n- Verdict: failed (exit 1)\n- Failing step 4: Paid filter still empty after reload; the v1 → v2 migration runs on every load and overwrites the saved status.\n- Evidence pack (screenshots, console, network): .testmuai/evidence/…\n\n## What to do\n1. Read the failing step and fix the application code so the flow passes. The flow describes intended behaviour.\n2. Only edit a *_test.md flow if the requirement itself changed; say so explicitly if you do.\n3. Stop when you are done editing. Proofline re-runs Kane CLI on the affected flows automatically."
+        },
+        {
+          "n": 4,
+          "startedAt": "2026-11-14T17:07:09.854Z",
+          "prompt": "repair-brief",
+          "diff": [
+            {
+              "file": "app.js",
+              "added": 12,
+              "removed": 3
+            },
+            {
+              "file": "data.js",
+              "added": 4,
+              "removed": 4
+            }
+          ],
+          "runIds": [
+            "run_demo071"
+          ],
+          "verdict": "red",
+          "endedAt": "2026-11-14T17:09:25.855Z",
+          "brief": "# Proofline: Kane CLI rejected this change\n\nOriginal task: Move invoice storage to a v2 schema\n\nAttempt 4 of 4.\n\nKane CLI ran 1 flow(s) against the app in a real browser. 1 did not pass.\n\n## Mark a sent invoice as paid (flows/mark_paid_test.md)\n- Verdict: failed (exit 1)\n- Failing step 4: Paid filter still empty after reload; the v1 → v2 migration runs on every load and overwrites the saved status.\n- Evidence pack (screenshots, console, network): .testmuai/evidence/…\n\n## What to do\n1. Read the failing step and fix the application code so the flow passes. The flow describes intended behaviour.\n2. Only edit a *_test.md flow if the requirement itself changed; say so explicitly if you do.\n3. Stop when you are done editing. Proofline re-runs Kane CLI on the affected flows automatically."
+        }
+      ],
+      "maxIterations": 4,
+      "source": "demo"
+    },
+    {
+      "id": "loop_demo05",
+      "task": "Show an empty state when no invoices match",
+      "agent": "claude",
+      "via": "hook:claude",
+      "startedAt": "2026-11-13T18:00:00.000Z",
+      "endedAt": "2026-11-13T18:08:28.408Z",
+      "status": "green",
+      "iterations": [
+        {
+          "n": 1,
+          "startedAt": "2026-11-13T18:00:00.000Z",
+          "prompt": "task",
+          "diff": [
+            {
+              "file": "app.js",
+              "added": 5,
+              "removed": 1
+            }
+          ],
+          "runIds": [
+            "run_demo065"
+          ],
+          "verdict": "red",
+          "endedAt": "2026-11-13T18:03:07.432Z",
+          "brief": "# Proofline: Kane CLI rejected this change\n\nOriginal task: Show an empty state when no invoices match\n\nAttempt 1 of 4.\n\nKane CLI ran 1 flow(s) against the app in a real browser. 1 did not pass.\n\n## Search and filter invoices (flows/search_filter_test.md)\n- Verdict: failed (exit 1)\n- Failing step 4: Typed \"zzz\": the table header is still shown with zero rows and no \"No invoices match\" message.\n- Evidence pack (screenshots, console, network): .testmuai/evidence/…\n\n## What to do\n1. Read the failing step and fix the application code so the flow passes. The flow describes intended behaviour.\n2. Only edit a *_test.md flow if the requirement itself changed; say so explicitly if you do.\n3. Stop when you are done editing. Proofline re-runs Kane CLI on the affected flows automatically."
+        },
+        {
+          "n": 2,
+          "startedAt": "2026-11-13T18:03:11.432Z",
+          "prompt": "repair-brief",
+          "diff": [
+            {
+              "file": "app.js",
+              "added": 3,
+              "removed": 2
+            }
+          ],
+          "runIds": [
+            "run_demo066"
+          ],
+          "verdict": "red",
+          "endedAt": "2026-11-13T18:05:30.940Z",
+          "brief": "# Proofline: Kane CLI rejected this change\n\nOriginal task: Show an empty state when no invoices match\n\nAttempt 2 of 4.\n\nKane CLI ran 1 flow(s) against the app in a real browser. 1 did not pass.\n\n## Search and filter invoices (flows/search_filter_test.md)\n- Verdict: failed (exit 1)\n- Failing step 4: Message reads \"No results\" instead of \"No invoices match\".\n- Evidence pack (screenshots, console, network): .testmuai/evidence/…\n\n## What to do\n1. Read the failing step and fix the application code so the flow passes. The flow describes intended behaviour.\n2. Only edit a *_test.md flow if the requirement itself changed; say so explicitly if you do.\n3. Stop when you are done editing. Proofline re-runs Kane CLI on the affected flows automatically."
+        },
+        {
+          "n": 3,
+          "startedAt": "2026-11-13T18:05:34.940Z",
+          "prompt": "repair-brief",
+          "diff": [
+            {
+              "file": "app.js",
+              "added": 1,
+              "removed": 1
+            }
+          ],
+          "runIds": [
+            "run_demo067"
+          ],
+          "verdict": "green",
+          "endedAt": "2026-11-13T18:08:24.408Z"
+        }
+      ],
+      "maxIterations": 4,
+      "source": "demo"
+    },
+    {
+      "id": "loop_demo04",
+      "task": "Filter the invoice list as the user types",
+      "agent": "codex",
+      "via": "loop",
+      "startedAt": "2026-11-12T20:00:00.000Z",
+      "endedAt": "2026-11-12T20:05:29.083Z",
+      "status": "green",
+      "iterations": [
+        {
+          "n": 1,
+          "startedAt": "2026-11-12T20:00:00.000Z",
+          "prompt": "task",
+          "agent": {
+            "exitCode": 0,
+            "seconds": 45.459912552246784
+          },
+          "diff": [
+            {
+              "file": "app.js",
+              "added": 11,
+              "removed": 2
+            }
+          ],
+          "runIds": [
+            "run_demo061",
+            "run_demo062"
+          ],
+          "verdict": "red",
+          "endedAt": "2026-11-12T20:02:15.574Z",
+          "brief": "# Proofline: Kane CLI rejected this change\n\nOriginal task: Filter the invoice list as the user types\n\nAttempt 1 of 4.\n\nKane CLI ran 2 flow(s) against the app in a real browser. 1 did not pass.\n\n## Search and filter invoices (flows/search_filter_test.md)\n- Verdict: failed (exit 1)\n- Failing step 2: After typing \"northwind\" the box contains only \"n\": the list re-rendered and the search box lost focus.\n- Evidence pack (screenshots, console, network): .testmuai/evidence/…\n\n## What to do\n1. Read the failing step and fix the application code so the flow passes. The flow describes intended behaviour.\n2. Only edit a *_test.md flow if the requirement itself changed; say so explicitly if you do.\n3. Stop when you are done editing. Proofline re-runs Kane CLI on the affected flows automatically."
+        },
+        {
+          "n": 2,
+          "startedAt": "2026-11-12T20:02:19.574Z",
+          "prompt": "repair-brief",
+          "agent": {
+            "exitCode": 0,
+            "seconds": 157.16052435206274
+          },
+          "diff": [
+            {
+              "file": "app.js",
+              "added": 4,
+              "removed": 0
+            }
+          ],
+          "runIds": [
+            "run_demo063",
+            "run_demo064"
+          ],
+          "verdict": "green",
+          "endedAt": "2026-11-12T20:05:25.083Z"
+        }
+      ],
+      "maxIterations": 4,
+      "source": "demo"
+    },
+    {
+      "id": "loop_demo03",
+      "task": "Mark as paid should update the list badge",
+      "agent": "claude",
+      "via": "hook:claude",
+      "startedAt": "2026-11-11T16:00:00.000Z",
+      "endedAt": "2026-11-11T16:03:00.311Z",
+      "status": "green",
+      "iterations": [
+        {
+          "n": 1,
+          "startedAt": "2026-11-11T16:00:00.000Z",
+          "prompt": "task",
+          "diff": [
+            {
+              "file": "app.js",
+              "added": 6,
+              "removed": 1
+            }
+          ],
+          "runIds": [
+            "run_demo059",
+            "run_demo060"
+          ],
+          "verdict": "green",
+          "endedAt": "2026-11-11T16:02:56.311Z"
+        }
+      ],
+      "maxIterations": 4,
+      "source": "demo"
+    },
+    {
+      "id": "loop_demo02",
+      "task": "Typing in a line item should update totals live",
+      "agent": "cursor",
+      "via": "hook:cursor",
+      "startedAt": "2026-11-10T19:00:00.000Z",
+      "endedAt": "2026-11-10T19:04:27.363Z",
+      "status": "green",
+      "iterations": [
+        {
+          "n": 1,
+          "startedAt": "2026-11-10T19:00:00.000Z",
+          "prompt": "task",
+          "diff": [
+            {
+              "file": "app.js",
+              "added": 9,
+              "removed": 4
+            }
+          ],
+          "runIds": [
+            "run_demo057"
+          ],
+          "verdict": "red",
+          "endedAt": "2026-11-10T19:02:45.066Z",
+          "brief": "# Proofline: Kane CLI rejected this change\n\nOriginal task: Typing in a line item should update totals live\n\nAttempt 1 of 4.\n\nKane CLI ran 1 flow(s) against the app in a real browser. 1 did not pass.\n\n## Create an invoice with a discount (flows/create_invoice_test.md)\n- Verdict: failed (exit 1)\n- Failing step 3: Line 1 quantity reset to 1 after typing the rate; subtotal shows ₹20,000 instead of ₹35,000. The form re-renders on every change and drops focus.\n- Evidence pack (screenshots, console, network): .testmuai/evidence/…\n\n## What to do\n1. Read the failing step and fix the application code so the flow passes. The flow describes intended behaviour.\n2. Only edit a *_test.md flow if the requirement itself changed; say so explicitly if you do.\n3. Stop when you are done editing. Proofline re-runs Kane CLI on the affected flows automatically."
+        },
+        {
+          "n": 2,
+          "startedAt": "2026-11-10T19:02:49.066Z",
+          "prompt": "repair-brief",
+          "diff": [
+            {
+              "file": "app.js",
+              "added": 14,
+              "removed": 6
+            }
+          ],
+          "runIds": [
+            "run_demo058"
+          ],
+          "verdict": "green",
+          "endedAt": "2026-11-10T19:04:23.363Z"
+        }
+      ],
+      "maxIterations": 4,
+      "source": "demo"
+    },
+    {
+      "id": "loop_demo01",
+      "task": "Add a percentage discount to the invoice editor",
+      "agent": "claude",
+      "via": "hook:claude",
+      "startedAt": "2026-11-08T17:00:00.000Z",
+      "endedAt": "2026-11-08T17:04:41.151Z",
+      "status": "green",
+      "iterations": [
+        {
+          "n": 1,
+          "startedAt": "2026-11-08T17:00:00.000Z",
+          "prompt": "task",
+          "diff": [
+            {
+              "file": "totals.js",
+              "added": 2,
+              "removed": 1
+            },
+            {
+              "file": "app.js",
+              "added": 18,
+              "removed": 3
+            }
+          ],
+          "runIds": [
+            "run_demo055"
+          ],
+          "verdict": "red",
+          "endedAt": "2026-11-08T17:02:22.359Z",
+          "brief": "# Proofline: Kane CLI rejected this change\n\nOriginal task: Add a percentage discount to the invoice editor\n\nAttempt 1 of 4.\n\nKane CLI ran 1 flow(s) against the app in a real browser. 1 did not pass.\n\n## Create an invoice with a discount (flows/create_invoice_test.md)\n- Verdict: failed (exit 1)\n- Failing step 5: Expected GST 18% ₹5,670 but the summary shows ₹6,300. GST appears to be computed before the discount.\n- Evidence pack (screenshots, console, network): .testmuai/evidence/…\n\n## What to do\n1. Read the failing step and fix the application code so the flow passes. The flow describes intended behaviour.\n2. Only edit a *_test.md flow if the requirement itself changed; say so explicitly if you do.\n3. Stop when you are done editing. Proofline re-runs Kane CLI on the affected flows automatically."
+        },
+        {
+          "n": 2,
+          "startedAt": "2026-11-08T17:02:26.359Z",
+          "prompt": "repair-brief",
+          "diff": [
+            {
+              "file": "totals.js",
+              "added": 1,
+              "removed": 1
+            }
+          ],
+          "runIds": [
+            "run_demo056"
+          ],
+          "verdict": "green",
+          "endedAt": "2026-11-08T17:04:37.151Z"
+        }
+      ],
+      "maxIterations": 4,
+      "source": "demo"
+    }
+  ]
+}

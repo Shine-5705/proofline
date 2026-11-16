@@ -1,0 +1,15 @@
+{
+  "baseUrl": "http://localhost:4173",
+  "start": "node ../../scripts/serve-example.mjs",
+  "flowsDir": "flows",
+  "agent": "claude",
+  "maxIterations": 4,
+  "headless": true,
+  "timeout": 300,
+  "globalCovers": ["index.html", "styles.css"],
+  "coverage": {
+    "flows/create_invoice_test.md": ["totals.js", "app.js"],
+    "flows/mark_paid_test.md": ["app.js", "data.js"],
+    "flows/search_filter_test.md": ["app.js", "data.js"]
+  }
+}

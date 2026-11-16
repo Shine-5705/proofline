@@ -1,0 +1,28 @@
+name: Kane CLI verification
+# Runs every example flow through Kane CLI in CI. Needs repo secrets LT_USERNAME and LT_ACCESS_KEY (TestMu AI).
+on:
+  workflow_dispatch:
+  pull_request:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      LT_USERNAME: ${{ secrets.LT_USERNAME }}
+      LT_ACCESS_KEY: ${{ secrets.LT_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Skip when TestMu AI secrets are not configured
+        if: env.LT_USERNAME == ''
+        run: echo "Add LT_USERNAME and LT_ACCESS_KEY secrets to enable Kane CLI in CI." 
+      - if: env.LT_USERNAME != ''
+        run: npm install -g @testmuai/kane-cli
+      - if: env.LT_USERNAME != ''
+        run: |
+          node scripts/serve-example.mjs &
+          sleep 1
+          cd examples/invoice-app && node ../../bin/proofline.mjs check
+      - if: always() && env.LT_USERNAME != ''
+        uses: actions/upload-artifact@v4
+        with: { name: proofline-runs, path: examples/invoice-app/.proofline/runs }
