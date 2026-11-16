@@ -27,10 +27,12 @@ export async function check(cfg, store, opts = {}) {
   else if (opts.changed) {
     changed = changedFiles(cfg.root, opts.since || 'HEAD');
     selected = selectFlows(flows, changed, cfg);
+    if (opts.alsoFlows?.length) selected = flows.filter((f) => selected.includes(f) || opts.alsoFlows.includes(f.id));
   }
   if (!opts.quiet) {
     console.log(c.bold(`proofline · verifying ${selected.length}/${flows.length} flow(s) with Kane CLI`));
     if (changed.length) console.log(c.gray(`  changed: ${changed.slice(0, 6).join(', ')}${changed.length > 6 ? ` +${changed.length - 6}` : ''}`));
+    if (opts.alsoFlows?.length) console.log(c.gray(`  re-checking last turn's failures: ${opts.alsoFlows.join(', ')}`));
   }
   const onEnd = (r) => !opts.quiet && printRun(r);
   const onStart = (r) => !opts.quiet && opts.live !== false && console.log(c.gray(`  ▸ ${r.flowTitle}`));

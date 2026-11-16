@@ -121,6 +121,9 @@ test('loop: Kane failure is fed to the agent, which fixes it, then Kane passes',
   const r = spawnSync('node', [BIN, 'loop', 'Fix what Kane finds', '--verify-first'], { cwd: dir, env: env(dir), encoding: 'utf8' });
   assert.equal(r.status, 0, r.stdout + r.stderr);
   assert.match(r.stdout, /GREEN · loop closed after 2 iteration/);
+  // The fix returns totals.js to HEAD (empty diff): the failed flow must still be re-verified, not skipped.
+  assert.match(r.stdout, /re-checking last turn's failures: create_invoice/);
+  assert.match(r.stdout, /PASS {2}Create an invoice/);
 });
 
 test('blocked when kane-cli cannot start (e.g. not signed in)', () => {

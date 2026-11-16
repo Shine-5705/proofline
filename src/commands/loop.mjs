@@ -15,6 +15,7 @@ export async function loop(cfg, store, task, opts = {}) {
   store.saveLoop(loopRec);
   console.log(c.bold(`proofline loop · ${agentName} ↔ Kane CLI · up to ${max} iterations`));
   let prompt = `${PREAMBLE}\n\nTask: ${task}`;
+  let failedFlows = [];
   for (let n = 1; n <= max; n++) {
     const it = { n, startedAt: new Date().toISOString(), prompt: n === 1 ? 'task' : 'repair-brief' };
     loopRec.iterations.push(it);
@@ -28,8 +29,10 @@ export async function loop(cfg, store, task, opts = {}) {
     console.log(c.gray(skip ? `  ${it.diff.length} file(s) changed vs HEAD: ${it.diff.map((d) => d.file).join(', ')}` : `  ${agentName} exited ${agent.exitCode} in ${fmtDuration(agent.seconds)} · ${it.diff.length} file(s) changed vs HEAD`));
     if (agent.exitCode === 127) { loopRec.status = 'error'; it.verdict = 'agent_missing'; break; }
     console.log(c.cyan(`[${n}/${max}] Kane CLI is verifying…`));
-    const res = await check(cfg, store, { changed: true, trigger: 'loop', loopId: loopRec.id, iteration: n, task, maxIterations: max });
+    // Always re-run what failed last turn: an agent fix can legitimately bring the tree back to HEAD (empty diff).
+    const res = await check(cfg, store, { changed: true, alsoFlows: failedFlows, trigger: 'loop', loopId: loopRec.id, iteration: n, task, maxIterations: max });
     it.runIds = res.runs.map((r) => r.id);
+    failedFlows = res.runs.filter((r) => r.status !== 'passed').map((r) => r.flowId);
     it.verdict = res.verdict;
     it.endedAt = new Date().toISOString();
     store.saveLoop(loopRec);
