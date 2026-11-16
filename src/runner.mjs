@@ -3,6 +3,7 @@ import { EventEmitter } from 'node:events';
 import { runFlow, kaneAvailable } from './kane.mjs';
 import { gitInfo } from './git.mjs';
 import { id } from './util.mjs';
+import { learnFromRun } from './coverage.mjs';
 
 export const bus = new EventEmitter();
 
@@ -35,6 +36,8 @@ export async function verify(cfg, store, flows, meta = {}) {
       onEvent: (ev, state) => bus.emit('run:event', { runId: run.id, ev, steps: state.steps }),
     });
     Object.assign(run, result, { endedAt: new Date().toISOString(), kaneArgs: args });
+    const learned = learnFromRun(cfg, run);
+    if (learned) run.learnedFiles = learned;
     store.saveRun(run, raw);
     bus.emit('run:end', run);
     results.push(run);

@@ -1,0 +1,12 @@
+{
+  "baseUrl": "https://shine-5705.github.io/proofline/",
+  "flowsDir": "flows",
+  "agent": "claude",
+  "maxIterations": 4,
+  "headless": true,
+  "timeout": 300,
+  "coverage": {
+    "flows/loop_timeline_test.md": ["src/pages/Loops.tsx", "src/App.tsx", "src/data.ts", "src/styles.css"],
+    "flows/runs_filter_test.md": ["src/pages/Runs.tsx", "src/App.tsx", "src/data.ts", "src/styles.css"]
+  }
+}

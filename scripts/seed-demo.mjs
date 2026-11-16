@@ -10,7 +10,8 @@ import { discoverFlows } from '../src/flows.mjs';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const exRoot = path.resolve(here, '..', 'examples', 'invoice-app');
 const cfg = loadConfig(exRoot);
-const flows = discoverFlows(cfg).map((f) => ({ ...f, recorded: true }));
+// In this single-page app every flow loads the same modules; `learned` mirrors what scripts/serve-example.mjs records.
+const flows = discoverFlows(cfg).map((f) => ({ ...f, recorded: true, learned: ['app.js', 'data.js', 'index.html', 'styles.css', 'totals.js'] }));
 const F = Object.fromEntries(flows.map((f) => [f.id, f]));
 
 let seed = 7;

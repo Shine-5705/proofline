@@ -3,11 +3,14 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { logRequest } from '../src/coverage.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'examples', 'invoice-app');
 const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml' };
 const port = Number(process.env.PORT || 4173);
 http.createServer((req, res) => {
+  // Recorded so Proofline can learn which files each Kane CLI flow actually loads.
+  logRequest(path.join(root, '.proofline'), req.url);
   let p = path.join(root, decodeURIComponent(new URL(req.url, 'http://x').pathname));
   if (!p.startsWith(root)) { res.writeHead(403); return res.end(); }
   if (fs.existsSync(p) && fs.statSync(p).isDirectory()) p = path.join(p, 'index.html');

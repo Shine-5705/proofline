@@ -149,3 +149,26 @@ test('changed files are relative to the project even inside a larger repo', () =
   assert.match(r.stdout, /verifying 1\/3 flow/);
   assert.match(r.stdout, /changed: totals\.js/);
 });
+
+test('learns which files a flow loaded from the dev-server request log', async () => {
+  const { resolveRequest, learnFromRun, logRequest } = await import('../src/coverage.mjs');
+  const { discoverFlows, selectFlows } = await import('../src/flows.mjs');
+  const { loadConfig } = await import('../src/config.mjs');
+  const dir = sandbox();
+  const cfgPath = path.join(dir, 'proofline.config.json');
+  const raw = JSON.parse(fs.readFileSync(cfgPath, 'utf8')); delete raw.coverage; fs.writeFileSync(cfgPath, JSON.stringify(raw));
+  const cfg = loadConfig(dir);
+  assert.equal(resolveRequest(dir, '/'), 'index.html');
+  assert.equal(resolveRequest(dir, '/totals.js?v=2'), 'totals.js');
+  assert.equal(resolveRequest(dir, '/nope.js'), null);
+  const start = Date.now();
+  for (const p of ['/', '/app.js', '/totals.js', '/styles.css', '/favicon.ico']) logRequest(cfg.dataDir, p);
+  const run = { id: 'r1', status: 'passed', flowFile: 'flows/create_invoice_test.md', startedAt: new Date(start - 10).toISOString(), endedAt: new Date(Date.now() + 10).toISOString() };
+  assert.deepEqual(learnFromRun(cfg, run), ['app.js', 'index.html', 'styles.css', 'totals.js']);
+  const flows = discoverFlows(cfg);
+  const ci = flows.find((f) => f.id === 'create_invoice');
+  assert.deepEqual(ci.learned, ['app.js', 'index.html', 'styles.css', 'totals.js']);
+  // data.js was never loaded by that flow, so a data.js change selects only flows that still guard everything.
+  assert.ok(!selectFlows([ci], ['data.js'], { globalCovers: [] }).length);
+  assert.equal(selectFlows([ci], ['totals.js'], { globalCovers: [] }).length, 1);
+});

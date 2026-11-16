@@ -110,7 +110,16 @@ in `proofline.config.json`:
 }
 ```
 
-A flow with no mapping guards everything (`**`). Editing a flow file always re-runs that flow.
+A flow with no mapping guards everything (`**`) **until Proofline learns what it touches**: the bundled dev server, or
+`proofline proxy --target http://localhost:5173` in front of yours, records every file the browser requests while Kane
+runs a flow. After a passing run, those files become the flow's guarded set (`.proofline/learned-coverage.json`), so a
+change to a file no flow ever loaded re-runs nothing. Works with static servers and Vite-style dev servers that serve
+source modules by path. Editing a flow file always re-runs that flow.
+
+### Dogfooding
+
+`console/flows/` holds Kane CLI flows for Proofline's own hosted console (open a loop, read the brief, filter runs),
+and the CI workflow (enabled once TestMu AI secrets are added) runs them alongside the example app's flows.
 
 ## The console
 
@@ -139,6 +148,7 @@ proofline loop "<task>" [--max <n>] [--verify-first] [--agent <name>]
 proofline watch
 proofline hook claude|cursor|git
 proofline ui [--port 4317]
+proofline proxy [--target <devServerUrl>] [--port 4174]
 proofline export [file]
 proofline doctor
 ```
@@ -151,6 +161,7 @@ Exit codes follow Kane CLI: `0` green, `1` a flow failed, `2` Kane did not start
 bin/proofline.mjs        CLI entry
 src/kane.mjs             spawns kane-cli, folds the NDJSON stream into a verdict
 src/flows.mjs            discovers *_test.md flows, maps changed files → flows
+src/coverage.mjs         learned coverage: files the browser loaded during each passing Kane run
 src/brief.mjs            failed runs → repair brief
 src/commands/            check · loop · hook · watch · init · doctor
 src/server.mjs           console API: workspace, runs, readiness, POST /api/check, SSE /api/events
@@ -163,7 +174,7 @@ test/                    node:test suite; fixtures/fake-kane.mjs is a test doubl
 ## Development
 
 ```bash
-npm test                                   # 12 tests, no network, no credits
+npm test                                   # 13 tests, no network, no credits
 npm --prefix console install
 npm run console:dev                        # Vite dev server, proxies /api to proofline ui on :4317
 npm run console:build

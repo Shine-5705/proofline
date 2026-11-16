@@ -102,7 +102,11 @@ export function FlowDetail({ ws, id, onChanged }: { ws: Workspace; id: string; o
           <div className="panel-head"><h2>Guards</h2></div>
           <div className="panel-body">
             <p className="muted" style={{ marginTop: 0 }}>A change to any of these files re-runs this flow when the agent stops, on save, or on push.</p>
-            {flow.covers.map((c) => <div key={c} className="mono" style={{ padding: '2px 0' }}>{c}</div>)}
+            {(flow.declared?.length ?? 0) > 0 && <div className="faint" style={{ fontSize: 12, marginTop: 8 }}>Declared in proofline.config.json</div>}
+            {(flow.declared || []).map((c) => <div key={`d${c}`} className="mono" style={{ padding: '2px 0' }}>{c}</div>)}
+            {(flow.learned?.length ?? 0) > 0 && <div className="faint" style={{ fontSize: 12, marginTop: 10 }}>Learned: loaded by the browser during the last passing Kane run</div>}
+            {(flow.learned || []).map((c) => <div key={`l${c}`} className="mono" style={{ padding: '2px 0' }}>{c}</div>)}
+            {!(flow.declared?.length) && !(flow.learned?.length) && flow.covers.map((c) => <div key={c} className="mono" style={{ padding: '2px 0' }}>{c === '**' ? '** (everything, until a passing run teaches Proofline what this flow loads)' : c}</div>)}
           </div>
           <div className="panel-head" style={{ borderTop: '1px solid var(--border)' }}><h2>Replay</h2></div>
           <div className="panel-body muted">{flow.recorded ? 'Recorded. Unchanged steps replay from the saved recording with no LLM cost.' : 'Not recorded yet. The first run authors each step; later runs replay.'}</div>

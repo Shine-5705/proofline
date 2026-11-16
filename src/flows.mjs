@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { walk, matchesAny } from './util.mjs';
+import { learnedCoverage } from './coverage.mjs';
 
 export function parseTestMd(text) {
   const out = { frontmatter: {}, title: null, steps: [] };
@@ -31,10 +32,14 @@ export function parseTestMd(text) {
 
 export function discoverFlows(cfg) {
   const files = walk(cfg.flowsPath, (p) => p.endsWith('_test.md')).sort();
+  const learned = cfg.dataDir ? learnedCoverage(cfg) : {};
   return files.map((file) => {
     const rel = path.relative(cfg.root, file).split(path.sep).join('/');
     const parsed = parseTestMd(fs.readFileSync(file, 'utf8'));
-    const covers = (cfg.coverage && cfg.coverage[rel]) || ['**'];
+    const declared = (cfg.coverage && cfg.coverage[rel]) || null;
+    const learnedFiles = learned[rel]?.files || [];
+    // Declared globs win when present; otherwise fall back to what Kane's browser actually loaded; otherwise everything.
+    const covers = declared ? [...new Set([...declared, ...learnedFiles])] : learnedFiles.length ? learnedFiles : ['**'];
     return {
       id: path.basename(file).replace(/_test\.md$/, ''),
       file: rel,
@@ -42,6 +47,8 @@ export function discoverFlows(cfg) {
       tags: Array.isArray(parsed.frontmatter.tags) ? parsed.frontmatter.tags : [],
       steps: parsed.steps,
       covers,
+      declared: declared || [],
+      learned: learnedFiles,
       recorded: fs.existsSync(path.join(path.dirname(file), `output-${path.basename(file).replace(/_test\.md$/, '')}`)),
     };
   });

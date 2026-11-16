@@ -63,6 +63,8 @@ export interface Flow {
   tags: string[];
   steps: { title: string; text: string }[];
   covers: string[];
+  declared?: string[];
+  learned?: string[];
   recorded: boolean;
 }
 

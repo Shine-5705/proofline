@@ -10,6 +10,7 @@ import { hook } from '../src/commands/hook.mjs';
 import { watch } from '../src/commands/watch.mjs';
 import { init } from '../src/commands/init.mjs';
 import { doctor } from '../src/commands/doctor.mjs';
+import { proxy } from '../src/commands/proxy.mjs';
 import { serve, workspace } from '../src/server.mjs';
 import { c } from '../src/util.mjs';
 
@@ -22,6 +23,7 @@ Usage
   proofline watch                                               re-verify affected flows on every save
   proofline hook claude|cursor|git                              entry point for agent / git hooks
   proofline ui [--port 4317]                                    local console over your run history
+  proofline proxy [--target <devServerUrl>] [--port 4174]       learn which files each flow loads (zero-config coverage)
   proofline export [file]                                       write the workspace JSON (for sharing / the hosted demo)
   proofline doctor                                              check kane-cli, sign-in, flows and hooks
 
@@ -83,6 +85,7 @@ async function main() {
       break;
     }
     case 'doctor': doctor(cfg); break;
+    case 'proxy': proxy(cfg, { target: args.target, port: Number(args.port || 4174) }); break;
     default: console.error(`Unknown command "${cmd}".\n\n${HELP}`); process.exitCode = 2;
   }
 }

@@ -22,7 +22,10 @@ jobs:
         run: |
           node scripts/serve-example.mjs &
           sleep 1
-          cd examples/invoice-app && node ../../bin/proofline.mjs check
+          (cd examples/invoice-app && node ../../bin/proofline.mjs check)
+      - name: Dogfood — Kane CLI verifies Proofline's own hosted console
+        if: env.LT_USERNAME != ''
+        run: cd console && node ../bin/proofline.mjs check
       - if: always() && env.LT_USERNAME != ''
         uses: actions/upload-artifact@v4
         with: { name: proofline-runs, path: examples/invoice-app/.proofline/runs }

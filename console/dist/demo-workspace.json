@@ -47,6 +47,17 @@
         "totals.js",
         "app.js"
       ],
+      "declared": [
+        "totals.js",
+        "app.js"
+      ],
+      "learned": [
+        "app.js",
+        "data.js",
+        "index.html",
+        "styles.css",
+        "totals.js"
+      ],
       "recorded": true
     },
     {
@@ -79,6 +90,17 @@
         "app.js",
         "data.js"
       ],
+      "declared": [
+        "app.js",
+        "data.js"
+      ],
+      "learned": [
+        "app.js",
+        "data.js",
+        "index.html",
+        "styles.css",
+        "totals.js"
+      ],
       "recorded": true
     },
     {
@@ -109,6 +131,17 @@
       "covers": [
         "app.js",
         "data.js"
+      ],
+      "declared": [
+        "app.js",
+        "data.js"
+      ],
+      "learned": [
+        "app.js",
+        "data.js",
+        "index.html",
+        "styles.css",
+        "totals.js"
       ],
       "recorded": true
     }
