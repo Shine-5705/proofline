@@ -1,0 +1,140 @@
+{
+  "id": "run_mwjg5r2y0db7ab",
+  "flowId": "create_invoice",
+  "flowFile": "flows/create_invoice_test.md",
+  "flowTitle": "Create an invoice with a discount",
+  "trigger": "manual",
+  "loopId": null,
+  "iteration": null,
+  "changedFiles": [],
+  "git": {
+    "sha": "dd51cf4",
+    "dirty": true
+  },
+  "kaneVersion": "0.10.4",
+  "startedAt": "2026-11-16T15:57:24.442Z",
+  "status": "passed",
+  "source": "kane-cli",
+  "exitCode": 0,
+  "summary": "You asked to save the invoice.\nClicked “Save invoice” on the Acme Robotics invoice.\nThe invoice page remained available showing Acme Robotics with status Draft and a total of ₹37,170.",
+  "reason": "Objective completed",
+  "duration": 238,
+  "credits": 87.26703499999999,
+  "testUrl": "https://test-manager.lambdatest.com/projects/01M7JH3K8R4E2BAMGF3WJA4FZ8/test-cases/01M7JH7QWAAF9ZP6X0E0XB0Q3W/dashboard/share/US_5ZU1EQYM2IB0QH1KWWES0KY9PAMT68TGTE9UNAUYOMTGED77LG2Y1BBR82C3442L?type=summary&agentView=true&fqdn=summary-page",
+  "sessionDir": "/home/box/.testmuai/kaneai/sessions/ca864cd4-84f1-4ea2-9336-0c930d14f11f",
+  "sessionId": "ca864cd4-84f1-4ea2-9336-0c930d14f11f",
+  "finalState": {
+    "url": "http://localhost:4173/#/invoice/INV-0005",
+    "customer": "Acme Robotics",
+    "invoice_status": "Draft",
+    "invoice_total": "₹37,170"
+  },
+  "failedStep": null,
+  "steps": [
+    {
+      "key": "md-1",
+      "index": 1,
+      "status": "passed",
+      "remark": "Open a fresh workspace: opened the invoice page on localhost",
+      "ms": 21000,
+      "actions": [
+        "Navigate to http://localhost:4173/#/reset",
+        "the Invoices heading is visible",
+        "the Invoices heading is visible"
+      ]
+    },
+    {
+      "key": "md-2",
+      "index": 2,
+      "status": "passed",
+      "remark": "Start a new invoice: created a new invoice on the invoice app",
+      "ms": 27500,
+      "actions": [
+        "Clicking New invoice",
+        "Typing Acme Robotics in the Client field",
+        "Waiting briefly after confirming the Client field contains \"Acme Robotics\""
+      ]
+    },
+    {
+      "key": "md-3",
+      "index": 3,
+      "status": "passed",
+      "remark": "Add two line items: added two line items on the new entry page",
+      "ms": 60000,
+      "actions": [
+        "queued plan (3 steps): type \"Item 1\"; type \"Quantity 1\"; type \"Rate 1\"",
+        "Type \"Design sprint\" into \"Item 1\"",
+        "queued plan (2 steps): type \"Quantity 1\"; type \"Rate 1\"",
+        "Type \"2\" into \"Quantity 1\"",
+        "Entering 15000 in line 1 rate field",
+        "Clicking Add line button",
+        "queued plan (3 steps): type \"Item 2\"; type \"Quantity 2\"; type \"Rate 2\"",
+        "Type \"QA pass\" into \"Item 2\"",
+        "Type \"1\" into \"Quantity 2\"",
+        "Type \"5000\" into \"Rate 2\"",
+        "Waiting after confirming line 2 values"
+      ]
+    },
+    {
+      "key": "md-4",
+      "index": 4,
+      "status": "passed",
+      "remark": "Apply a discount: set the discount to 10% on the new-item page",
+      "ms": 42300,
+      "actions": [
+        "Typing 10 into Discount (%) field",
+        "Clicking outside the Discount (%) field",
+        "click outside the field | HINTS: click blank whitespace in the Summary ",
+        "Waiting after clicking outside the field"
+      ]
+    },
+    {
+      "key": "md-5",
+      "index": 5,
+      "status": "passed",
+      "remark": "Check the totals: verified invoice summary amounts on localhost",
+      "ms": 29000,
+      "actions": [
+        "the summary shows Total ₹37,170",
+        "the summary shows Subtotal ₹35,000, Discount − ₹3,500, GST 18% ₹5,670 and Total "
+      ]
+    },
+    {
+      "key": "md-6",
+      "index": 6,
+      "status": "passed",
+      "remark": "Save: saved the invoice on the invoice page",
+      "ms": 49700,
+      "actions": [
+        "Clicking Save invoice",
+        "wait for the saved invoice heading to load",
+        "the page shows Total ₹37,170.",
+        "the page shows \"Acme Robotics\" with status Draft and Total ₹37,170."
+      ]
+    }
+  ],
+  "warnings": [],
+  "wallSeconds": 260.569,
+  "evidence": "/home/box/.testmuai/kaneai/sessions/ca864cd4-84f1-4ea2-9336-0c930d14f11f/evidence/e2469f9d-85ca-4fa6-aaaf-6af2dd15dd6d.evidence",
+  "endedAt": "2026-11-16T16:01:45.012Z",
+  "kaneArgs": [
+    "testmd",
+    "run",
+    "flows/create_invoice_test.md",
+    "--agent",
+    "--headless",
+    "--timeout",
+    "300"
+  ],
+  "learnedFiles": [
+    "app.js",
+    "data.js",
+    "index.html",
+    "styles.css",
+    "totals.js"
+  ],
+  "replay": {
+    "replayed": 0,
+    "authored": 6
+  }
+}

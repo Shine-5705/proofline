@@ -1,0 +1,128 @@
+{
+  "id": "run_mwjgso937a141f",
+  "flowId": "search_filter",
+  "flowFile": "flows/search_filter_test.md",
+  "flowTitle": "Search and filter invoices",
+  "trigger": "loop",
+  "loopId": "loop_mwjgozqtc050f4",
+  "iteration": 1,
+  "changedFiles": [
+    "totals.js",
+    "flows/output-create_invoice/.internal/execution.json",
+    "flows/output-create_invoice/.internal/meta.json",
+    "flows/output-create_invoice/.internal/steps/1-a8edbbd5/flows/0/actions.ndjson",
+    "flows/output-create_invoice/.internal/steps/2-11e46607/flows/0/actions.ndjson",
+    "flows/output-create_invoice/.internal/steps/3-37579cce/flows/0/actions.ndjson",
+    "flows/output-create_invoice/.internal/steps/4-4ae9e7af/flows/0/actions.ndjson",
+    "flows/output-create_invoice/.internal/steps/5-1c696d58/flows/0/actions.ndjson",
+    "flows/output-create_invoice/.internal/steps/6-6b8a5aa6/flows/0/actions.ndjson",
+    "flows/output-create_invoice/Result.md",
+    "flows/output-mark_paid/.internal/execution.json",
+    "flows/output-mark_paid/.internal/meta.json",
+    "flows/output-mark_paid/.internal/steps/1-a8edbbd5/flows/0/actions.ndjson",
+    "flows/output-mark_paid/.internal/steps/2-805527f2/flows/0/actions.ndjson",
+    "flows/output-mark_paid/.internal/steps/3-6dac8df4/flows/0/actions.ndjson",
+    "flows/output-mark_paid/.internal/steps/4-e90beca7/flows/0/actions.ndjson",
+    "flows/output-mark_paid/Result.md",
+    "flows/output-search_filter/.internal/execution.json",
+    "flows/output-search_filter/.internal/meta.json",
+    "flows/output-search_filter/.internal/steps/1-324379db/flows/0/actions.ndjson",
+    "flows/output-search_filter/.internal/steps/2-66c33872/flows/0/actions.ndjson",
+    "flows/output-search_filter/.internal/steps/3-49d811f7/flows/0/actions.ndjson",
+    "flows/output-search_filter/.internal/steps/4-0ee62a46/flows/0/actions.ndjson",
+    "flows/output-search_filter/Result.md"
+  ],
+  "git": {
+    "sha": "dd51cf4",
+    "dirty": true
+  },
+  "kaneVersion": "0.10.4",
+  "startedAt": "2026-11-16T16:15:13.863Z",
+  "status": "passed",
+  "source": "kane-cli",
+  "exitCode": 0,
+  "summary": "passed",
+  "reason": "replay completed",
+  "duration": 14,
+  "credits": null,
+  "testUrl": null,
+  "replay": {
+    "replayed": 4,
+    "authored": 0
+  },
+  "sessionDir": null,
+  "sessionId": "c5862fd7-634b-476b-bd69-b33043438e42",
+  "finalState": null,
+  "failedStep": null,
+  "steps": [
+    {
+      "key": "md-1",
+      "index": 1,
+      "status": "passed",
+      "remark": "Open the invoice list",
+      "ms": 580,
+      "actions": [
+        "Navigate to http://localhost:4173/#/reset",
+        "Reading the number of invoices listed in the table",
+        "4 invoices are listed"
+      ]
+    },
+    {
+      "key": "md-2",
+      "index": 2,
+      "status": "passed",
+      "remark": "Search by client",
+      "ms": 850,
+      "actions": [
+        "Typing northwind in Search client box",
+        "Reading the shown row count from the Invoices table",
+        "Checking the customer on every shown Invoices row",
+        "exactly 2 rows are shown and both are \"Northwind Traders\"."
+      ]
+    },
+    {
+      "key": "md-3",
+      "index": 3,
+      "status": "passed",
+      "remark": "Narrow by status",
+      "ms": 330,
+      "actions": [
+        "Selecting Draft in the status filter combobox",
+        "Reading the rows shown in the invoices table",
+        "exactly 1 row is shown: INV-0004."
+      ]
+    },
+    {
+      "key": "md-4",
+      "index": 4,
+      "status": "passed",
+      "remark": "No results",
+      "ms": 7620,
+      "actions": [
+        "Typing zzz into the search box",
+        "Checking whether the no-invoices-match message is visible",
+        "the message \"No invoices match\" is visible"
+      ]
+    }
+  ],
+  "warnings": [],
+  "wallSeconds": 22.866,
+  "evidence": "/home/box/.testmuai/kaneai/sessions/c5862fd7-634b-476b-bd69-b33043438e42/evidence/95d4e92d-c345-46aa-9589-a908f71e45a3.evidence",
+  "endedAt": "2026-11-16T16:15:36.729Z",
+  "kaneArgs": [
+    "testmd",
+    "run",
+    "flows/search_filter_test.md",
+    "--agent",
+    "--headless",
+    "--timeout",
+    "300"
+  ],
+  "learnedFiles": [
+    "app.js",
+    "data.js",
+    "index.html",
+    "styles.css",
+    "totals.js"
+  ]
+}

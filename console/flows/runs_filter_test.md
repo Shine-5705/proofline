@@ -6,7 +6,7 @@ tags: [dogfood, console]
 # Console filters runs and opens one
 
 ## Open runs
-Open https://shine-5705.github.io/proofline/#/runs and verify the heading "Runs" is visible.
+Open https://shine-5705.github.io/proofline/?demo#/runs and verify the heading "Runs" is visible.
 
 ## Filter to failures
 Click the "Failed" filter button. Verify every row in the table has the status "Failed".

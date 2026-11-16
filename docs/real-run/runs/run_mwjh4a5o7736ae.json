@@ -1,0 +1,106 @@
+{
+  "id": "run_mwjh4a5o7736ae",
+  "flowId": "search_filter",
+  "flowFile": "flows/search_filter_test.md",
+  "flowTitle": "Search and filter invoices",
+  "trigger": "loop",
+  "loopId": "loop_mwjh1258515046",
+  "iteration": 1,
+  "changedFiles": [
+    "totals.js"
+  ],
+  "git": {
+    "sha": "051a1cf",
+    "dirty": true
+  },
+  "kaneVersion": "0.10.4",
+  "startedAt": "2026-11-16T16:24:15.468Z",
+  "status": "passed",
+  "source": "kane-cli",
+  "exitCode": 0,
+  "summary": "passed",
+  "reason": "replay completed",
+  "duration": 13,
+  "credits": null,
+  "testUrl": null,
+  "replay": {
+    "replayed": 4,
+    "authored": 0
+  },
+  "sessionDir": null,
+  "sessionId": "2c3da162-6d46-4834-9d0a-b0ae2538bebc",
+  "finalState": null,
+  "failedStep": null,
+  "heals": 0,
+  "steps": [
+    {
+      "key": "md-1",
+      "index": 1,
+      "status": "passed",
+      "remark": "Open the invoice list",
+      "ms": 530,
+      "actions": [
+        "Navigate to http://localhost:4173/#/reset",
+        "Reading the number of invoices listed in the table",
+        "4 invoices are listed"
+      ]
+    },
+    {
+      "key": "md-2",
+      "index": 2,
+      "status": "passed",
+      "remark": "Search by client",
+      "ms": 1710,
+      "actions": [
+        "Typing northwind in Search client box",
+        "Reading the shown row count from the Invoices table",
+        "Checking the customer on every shown Invoices row",
+        "exactly 2 rows are shown and both are \"Northwind Traders\"."
+      ]
+    },
+    {
+      "key": "md-3",
+      "index": 3,
+      "status": "passed",
+      "remark": "Narrow by status",
+      "ms": 370,
+      "actions": [
+        "Selecting Draft in the status filter combobox",
+        "Reading the rows shown in the invoices table",
+        "exactly 1 row is shown: INV-0004."
+      ]
+    },
+    {
+      "key": "md-4",
+      "index": 4,
+      "status": "passed",
+      "remark": "No results",
+      "ms": 6290,
+      "actions": [
+        "Typing zzz into the search box",
+        "Checking whether the no-invoices-match message is visible",
+        "the message \"No invoices match\" is visible"
+      ]
+    }
+  ],
+  "warnings": [],
+  "wallSeconds": 22.609,
+  "evidence": "/home/box/.testmuai/kaneai/sessions/2c3da162-6d46-4834-9d0a-b0ae2538bebc/evidence/4ed7b14a-c172-465a-8a36-81c2f035aba0.evidence",
+  "endedAt": "2026-11-16T16:24:38.077Z",
+  "kaneArgs": [
+    "testmd",
+    "run",
+    "flows/search_filter_test.md",
+    "--agent",
+    "--headless",
+    "--timeout",
+    "300"
+  ],
+  "learnedFiles": [
+    "app.js",
+    "data.js",
+    "index.html",
+    "styles.css",
+    "totals.js"
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "id": "run_mwjgekez84ba2d",
+  "flowId": "search_filter",
+  "flowFile": "flows/search_filter_test.md",
+  "flowTitle": "Search and filter invoices",
+  "trigger": "manual",
+  "loopId": null,
+  "iteration": null,
+  "changedFiles": [],
+  "git": {
+    "sha": "dd51cf4",
+    "dirty": true
+  },
+  "kaneVersion": "0.10.4",
+  "startedAt": "2026-11-16T16:04:15.707Z",
+  "status": "passed",
+  "source": "kane-cli",
+  "exitCode": 0,
+  "summary": "Searched the invoices list for \"zzz\" by clearing the search box and entering the new text.\nThe invoices page showed the message \"No invoices match,\" confirming there were no matching results.",
+  "reason": "Objective completed",
+  "duration": 147,
+  "credits": 64.3057675,
+  "testUrl": "https://test-manager.lambdatest.com/projects/01M7JH3K8R4E2BAMGF3WJA4FZ8/test-cases/01M7JHSP0ZY7V3RMGTQ01S5Q4W/dashboard/share/US_Q0K4PFMD4D3PYK7LGF46ODSQ6HO94UU4KDGVXY6CF6V9GOEW1TVEATDWA3D5MAKF?type=summary&agentView=true&fqdn=summary-page",
+  "sessionDir": "/home/box/.testmuai/kaneai/sessions/7a558e69-788f-4983-b9ab-7d21e2e2709a",
+  "sessionId": "7a558e69-788f-4983-b9ab-7d21e2e2709a",
+  "finalState": {
+    "url": "http://localhost:4173/#/?q=zzz&status=draft",
+    "no_invoices_match_message_visible": "true"
+  },
+  "failedStep": null,
+  "steps": [
+    {
+      "key": "md-1",
+      "index": 1,
+      "status": "passed",
+      "remark": "Open the invoice list: confirmed four invoices on the Invoices page",
+      "ms": 21000,
+      "actions": [
+        "Navigate to http://localhost:4173/#/reset",
+        "4 invoices are listed",
+        "4 invoices are listed"
+      ]
+    },
+    {
+      "key": "md-2",
+      "index": 2,
+      "status": "passed",
+      "remark": "Search by client: searched for Northwind Traders on the invoices page",
+      "ms": 40300,
+      "actions": [
+        "Typing northwind in Search client box",
+        "both shown rows are \"Northwind Traders\".",
+        "exactly 2 rows are shown and both are \"Northwind Traders\"."
+      ]
+    },
+    {
+      "key": "md-3",
+      "index": 3,
+      "status": "passed",
+      "remark": "Narrow by status: filtered invoices by Draft status on the invoices page",
+      "ms": 28600,
+      "actions": [
+        "Selecting Draft in the status filter combobox",
+        "exactly 1 row is shown: INV-0004.",
+        "exactly 1 row is shown: INV-0004."
+      ]
+    },
+    {
+      "key": "md-4",
+      "index": 4,
+      "status": "passed",
+      "remark": "No results: searched for invoices on the invoices page",
+      "ms": 35000,
+      "actions": [
+        "Typing zzz into the search box",
+        "the message \"No invoices match\" is visible",
+        "the message \"No invoices match\" is visible"
+      ]
+    }
+  ],
+  "warnings": [],
+  "wallSeconds": 348.985,
+  "evidence": "/home/box/.testmuai/kaneai/sessions/7a558e69-788f-4983-b9ab-7d21e2e2709a/evidence/4617e4d3-fa29-42a6-be48-2827d1cffe73.evidence",
+  "endedAt": "2026-11-16T16:10:04.693Z",
+  "kaneArgs": [
+    "testmd",
+    "run",
+    "flows/search_filter_test.md",
+    "--agent",
+    "--headless",
+    "--timeout",
+    "300"
+  ],
+  "learnedFiles": [
+    "app.js",
+    "data.js",
+    "index.html",
+    "styles.css",
+    "totals.js"
+  ],
+  "replay": {
+    "replayed": 0,
+    "authored": 4
+  }
+}

@@ -3,7 +3,7 @@ import type { Run } from '../types';
 
 const LABEL: Record<string, string> = {
   passed: 'Passed', failed: 'Failed', not_started: 'Did not start', timeout: 'Timed out', error: 'Error', running: 'Running',
-  green: 'Green', red: 'Red', blocked: 'Blocked', gave_up: 'Gave up', skipped: 'Skipped',
+  green: 'Green', red: 'Red', blocked: 'Blocked', gave_up: 'Gave up', skipped: 'Skipped', cancelled: 'Cancelled',
 };
 
 export function Status({ value, label }: { value: string; label?: string }) {

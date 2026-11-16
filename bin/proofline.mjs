@@ -82,6 +82,10 @@ async function main() {
     case 'export': {
       const data = workspace(cfg, store);
       data.mode = 'export';
+      // Shareable snapshot: drop machine-local paths, keep every verdict, step, diagnosis and Test Manager link as recorded.
+      delete data.project.root;
+      if (data.loops[0]?.agent) data.project.agent = data.loops[0].agent; // the agent that actually drove the recorded loops
+      data.runs = data.runs.map(({ sessionDir, kaneArgs, ...r }) => ({ ...r, evidence: r.evidence ? path.basename(r.evidence) : r.evidence }));
       const out = JSON.stringify(data, null, 2);
       if (args._[0]) { fs.writeFileSync(path.resolve(args._[0]), out); console.log(`wrote ${args._[0]}`); } else process.stdout.write(out);
       break;

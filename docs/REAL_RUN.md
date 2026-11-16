@@ -1,5 +1,9 @@
 # Recording the real Kane CLI loop (≈15 minutes)
 
+> **Done on 16 Nov 2026.** Results, run IDs and who the agent was: see "Real run" in the main README and
+> [docs/real-run/](real-run/). This page stays as the how-to for repeating it.
+
+
 The hackathon scores three bars: the app works, **Kane CLI caught or proved something**, and **the agent and Kane CLI
 talked to each other**. This is the exact sequence to capture both on your own machine.
 

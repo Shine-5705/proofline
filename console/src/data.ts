@@ -10,6 +10,13 @@ async function fetchWorkspace(): Promise<Workspace> {
       if (r.ok && (r.headers.get('content-type') || '').includes('json')) return (await r.json()) as Workspace;
     } catch { /* not running under proofline ui */ }
   }
+  // Hosted: prefer the exported snapshot of real Kane CLI runs (workspace.json); ?demo shows the labelled sample workspace.
+  if (!new URLSearchParams(location.search).has('demo')) {
+    try {
+      const real = await fetch(`${import.meta.env.BASE_URL}workspace.json`);
+      if (real.ok && (real.headers.get('content-type') || '').includes('json')) return (await real.json()) as Workspace;
+    } catch { /* no snapshot published */ }
+  }
   const r = await fetch(`${import.meta.env.BASE_URL}demo-workspace.json`);
   if (!r.ok) throw new Error(`Could not load workspace (HTTP ${r.status})`);
   const ws = (await r.json()) as Workspace;

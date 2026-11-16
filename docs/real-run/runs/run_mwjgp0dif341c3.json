@@ -1,0 +1,141 @@
+{
+  "id": "run_mwjgp0dif341c3",
+  "flowId": "create_invoice",
+  "flowFile": "flows/create_invoice_test.md",
+  "flowTitle": "Create an invoice with a discount",
+  "trigger": "loop",
+  "loopId": "loop_mwjgozqtc050f4",
+  "iteration": 1,
+  "changedFiles": [
+    "totals.js",
+    "flows/output-create_invoice/.internal/execution.json",
+    "flows/output-create_invoice/.internal/meta.json",
+    "flows/output-create_invoice/.internal/steps/1-a8edbbd5/flows/0/actions.ndjson",
+    "flows/output-create_invoice/.internal/steps/2-11e46607/flows/0/actions.ndjson",
+    "flows/output-create_invoice/.internal/steps/3-37579cce/flows/0/actions.ndjson",
+    "flows/output-create_invoice/.internal/steps/4-4ae9e7af/flows/0/actions.ndjson",
+    "flows/output-create_invoice/.internal/steps/5-1c696d58/flows/0/actions.ndjson",
+    "flows/output-create_invoice/.internal/steps/6-6b8a5aa6/flows/0/actions.ndjson",
+    "flows/output-create_invoice/Result.md",
+    "flows/output-mark_paid/.internal/execution.json",
+    "flows/output-mark_paid/.internal/meta.json",
+    "flows/output-mark_paid/.internal/steps/1-a8edbbd5/flows/0/actions.ndjson",
+    "flows/output-mark_paid/.internal/steps/2-805527f2/flows/0/actions.ndjson",
+    "flows/output-mark_paid/.internal/steps/3-6dac8df4/flows/0/actions.ndjson",
+    "flows/output-mark_paid/.internal/steps/4-e90beca7/flows/0/actions.ndjson",
+    "flows/output-mark_paid/Result.md",
+    "flows/output-search_filter/.internal/execution.json",
+    "flows/output-search_filter/.internal/meta.json",
+    "flows/output-search_filter/.internal/steps/1-324379db/flows/0/actions.ndjson",
+    "flows/output-search_filter/.internal/steps/2-66c33872/flows/0/actions.ndjson",
+    "flows/output-search_filter/.internal/steps/3-49d811f7/flows/0/actions.ndjson",
+    "flows/output-search_filter/.internal/steps/4-0ee62a46/flows/0/actions.ndjson",
+    "flows/output-search_filter/Result.md"
+  ],
+  "git": {
+    "sha": "dd51cf4",
+    "dirty": true
+  },
+  "kaneVersion": "0.10.4",
+  "startedAt": "2026-11-16T16:12:22.950Z",
+  "status": "failed",
+  "source": "kane-cli",
+  "exitCode": 1,
+  "summary": "After the 10% discount, the taxable amount should be ₹31,500. The screen instead shows GST of ₹6,300, which is 18% of the undiscounted ₹35,000, so the total becomes ₹37,800 rather than ₹37,170.\nUpdate the invoice calculation so GST is calculated after subtracting the discount: ₹35,000 − ₹3,500 = ₹31,500; 18% GST = ₹5,670; total = ₹37,170.\nevidence: objective_contradiction: GST 18% ₹6,300\nevidence: objective_contradiction: ₹37,800",
+  "reason": "Final verification failed: \"the summary shows Subtotal ₹35,000, Discount − ₹3,500, GST 18% ₹5,670 and Total ₹37,170\"",
+  "duration": 126,
+  "credits": 8.746410000000001,
+  "testUrl": null,
+  "replay": {
+    "replayed": 6,
+    "authored": 0
+  },
+  "sessionDir": "/home/box/.testmuai/kaneai/sessions/155f1471-9dc4-4999-83f5-d4a2522918db",
+  "sessionId": "155f1471-9dc4-4999-83f5-d4a2522918db",
+  "finalState": {},
+  "failedStep": {
+    "index": 5,
+    "remark": "Check the totals: The invoice summary applies 18% GST to the full ₹35,000 subtotal instead of the discounted ₹31,500 amount.",
+    "diagnosis": "After the 10% discount, the taxable amount should be ₹31,500. The screen instead shows GST of ₹6,300, which is 18% of the undiscounted ₹35,000, so the total becomes ₹37,800 rather than ₹37,170.\nUpdate the invoice calculation so GST is calculated after subtracting the discount: ₹35,000 − ₹3,500 = ₹31,500; 18% GST = ₹5,670; total = ₹37,170.\nevidence: objective_contradiction: GST 18% ₹6,300\nevidence: objective_contradiction: ₹37,800"
+  },
+  "steps": [
+    {
+      "key": "md-1",
+      "index": 1,
+      "status": "passed",
+      "remark": "Open a fresh workspace",
+      "ms": 590,
+      "actions": [
+        "Navigate to http://localhost:4173/#/reset",
+        "Checking whether the Invoices heading is present",
+        "the Invoices heading is visible"
+      ]
+    },
+    {
+      "key": "md-2",
+      "index": 2,
+      "status": "passed",
+      "remark": "Start a new invoice",
+      "ms": 1040,
+      "actions": [
+        "Clicking New invoice",
+        "Typing Acme Robotics in the Client field"
+      ]
+    },
+    {
+      "key": "md-3",
+      "index": 3,
+      "status": "passed",
+      "remark": "Add two line items",
+      "ms": 5820,
+      "actions": [
+        "Waiting for plan steps to complete",
+        "Type \"Design sprint\" into \"Item 1\"",
+        "Waiting for the plan steps to be processed",
+        "Type \"2\" into \"Quantity 1\"",
+        "Entering 15000 in line 1 rate field",
+        "Clicking Add line button",
+        "Waiting for the plan to process",
+        "Type \"QA pass\" into \"Item 2\"",
+        "Type \"1\" into \"Quantity 2\"",
+        "Type \"5000\" into \"Rate 2\""
+      ]
+    },
+    {
+      "key": "md-4",
+      "index": 4,
+      "status": "passed",
+      "remark": "Apply a discount",
+      "ms": 10310,
+      "actions": [
+        "Typing 10 into Discount (%) field",
+        "Clicking outside the Discount (%) field",
+        "Clicking blank whitespace in the Summary panel beside Discount (%)"
+      ]
+    },
+    {
+      "key": "md-5",
+      "index": 5,
+      "status": "failed",
+      "remark": "Check the totals: The invoice summary applies 18% GST to the full ₹35,000 subtotal instead of the discounted ₹31,500 amount.",
+      "ms": 39100,
+      "actions": [
+        "the summary shows Total ₹37,170",
+        "the summary shows Subtotal ₹35,000, Discount − ₹3,500, GST 18% ₹5,670 and Total "
+      ]
+    }
+  ],
+  "warnings": [],
+  "wallSeconds": 140.761,
+  "evidence": "/home/box/.testmuai/kaneai/sessions/155f1471-9dc4-4999-83f5-d4a2522918db/evidence/30665e0a-7c09-49d4-a864-4374cfa86953.evidence",
+  "endedAt": "2026-11-16T16:14:43.712Z",
+  "kaneArgs": [
+    "testmd",
+    "run",
+    "flows/create_invoice_test.md",
+    "--agent",
+    "--headless",
+    "--timeout",
+    "300"
+  ]
+}

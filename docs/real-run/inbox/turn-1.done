@@ -1,0 +1,1 @@
+totals.js line 12 computed GST on the pre-discount subtotal; Kane's step 5 showed GST ₹6,300 (18% of ₹35,000). Changed it to tax the discounted taxable amount (₹31,500 → GST ₹5,670, total ₹37,170).

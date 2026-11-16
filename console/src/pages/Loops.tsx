@@ -83,13 +83,20 @@ export function LoopDetail({ ws, id }: { ws: Workspace; id: string }) {
               <div key={it.n}>
                 <div className="iter-label">Turn {it.n}</div>
                 <ol className="timeline">
-                  {(it.agent || (it.diff && it.diff.length > 0) || it.n === 1) && (
+                  {it.agent?.outputTail?.startsWith('(skipped') ? (
+                    <li>
+                      <span className="node agent" />
+                      <div className="ev-head"><span className="who">Proofline</span><span className="muted">verified the current tree first (no agent turn)</span><span className="when">{dateTime(it.startedAt)}</span></div>
+                      {it.diff && it.diff.length > 0 && <ul className="files">{it.diff.map((d) => <li key={d.file}><span style={{ minWidth: 0, flex: 1 }}>{d.file}</span><span className="add">+{d.added}</span><span className="del">−{d.removed}</span></li>)}</ul>}
+                    </li>
+                  ) : (it.agent || (it.diff && it.diff.length > 0) || it.n === 1) && (
                     <li>
                       <span className="node agent" />
                       <div className="ev-head"><span className="who">{agentLabel(loop.agent)}</span><span className="muted">{it.prompt === 'task' ? 'worked on the task' : 'acted on the Kane CLI failure'}</span><span className="when">{dateTime(it.startedAt)}{it.agent ? ` · ${duration(it.agent.seconds)}` : ''}</span></div>
                       {it.diff && it.diff.length > 0 && (
                         <ul className="files">{it.diff.map((d) => <li key={d.file}><span style={{ minWidth: 0, flex: 1 }}>{d.file}</span><span className="add">+{d.added}</span><span className="del">−{d.removed}</span></li>)}</ul>
                       )}
+                      {it.agent?.outputTail && it.agent.outputTail.trim() && <div className="agent-note">{it.agent.outputTail.trim().split('\n').slice(-3).join('\n')}</div>}
                       {!it.agent && !it.diff && <div className="ev-body faint">Edits made inside the agent session; the hook fired when the agent tried to stop.</div>}
                     </li>
                   )}
@@ -110,6 +117,7 @@ export function LoopDetail({ ws, id }: { ws: Workspace; id: string }) {
             );
           })}
           {loop.status === 'green' && <div className="callout ok" style={{ marginLeft: 28 }}><strong>Loop closed.</strong> The agent was allowed to finish only after Kane CLI passed every affected flow.</div>}
+          {loop.status === 'cancelled' && <div className="callout" style={{ marginLeft: 28 }}><strong>Cancelled.</strong> {loop.note || 'Stopped before a verdict.'}</div>}
           {loop.status === 'gave_up' && <div className="callout" style={{ marginLeft: 28 }}><strong>Handed back to a human</strong> after {loop.maxIterations} turns. The last repair brief is in <span className="mono">.proofline/brief.md</span>.</div>}
         </div>
         <aside className="panel">

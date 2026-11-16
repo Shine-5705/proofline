@@ -1,0 +1,129 @@
+{
+  "id": "run_mwjgwrsue02441",
+  "flowId": "mark_paid",
+  "flowFile": "flows/mark_paid_test.md",
+  "flowTitle": "Mark a sent invoice as paid",
+  "trigger": "loop",
+  "loopId": "loop_mwjgozqtc050f4",
+  "iteration": 2,
+  "changedFiles": [
+    "totals.js",
+    "flows/output-create_invoice/.internal/execution.json",
+    "flows/output-create_invoice/.internal/meta.json",
+    "flows/output-create_invoice/.internal/steps/1-a8edbbd5/flows/0/actions.ndjson",
+    "flows/output-create_invoice/.internal/steps/2-11e46607/flows/0/actions.ndjson",
+    "flows/output-create_invoice/.internal/steps/3-37579cce/flows/0/actions.ndjson",
+    "flows/output-create_invoice/.internal/steps/4-4ae9e7af/flows/0/actions.ndjson",
+    "flows/output-create_invoice/.internal/steps/5-1c696d58/flows/0/actions.ndjson",
+    "flows/output-create_invoice/.internal/steps/6-6b8a5aa6/flows/0/actions.ndjson",
+    "flows/output-create_invoice/Result.md",
+    "flows/output-mark_paid/.internal/execution.json",
+    "flows/output-mark_paid/.internal/meta.json",
+    "flows/output-mark_paid/.internal/steps/1-a8edbbd5/flows/0/actions.ndjson",
+    "flows/output-mark_paid/.internal/steps/2-805527f2/flows/0/actions.ndjson",
+    "flows/output-mark_paid/.internal/steps/3-6dac8df4/flows/0/actions.ndjson",
+    "flows/output-mark_paid/.internal/steps/4-e90beca7/flows/0/actions.ndjson",
+    "flows/output-mark_paid/Result.md",
+    "flows/output-search_filter/.internal/execution.json",
+    "flows/output-search_filter/.internal/meta.json",
+    "flows/output-search_filter/.internal/steps/1-324379db/flows/0/actions.ndjson",
+    "flows/output-search_filter/.internal/steps/2-66c33872/flows/0/actions.ndjson",
+    "flows/output-search_filter/.internal/steps/3-49d811f7/flows/0/actions.ndjson",
+    "flows/output-search_filter/.internal/steps/4-0ee62a46/flows/0/actions.ndjson",
+    "flows/output-search_filter/Result.md"
+  ],
+  "git": {
+    "sha": "dd51cf4",
+    "dirty": true
+  },
+  "kaneVersion": "0.10.4",
+  "startedAt": "2026-11-16T16:18:25.086Z",
+  "status": "passed",
+  "source": "kane-cli",
+  "exitCode": 0,
+  "summary": "passed",
+  "reason": "replay completed",
+  "duration": 19,
+  "credits": null,
+  "testUrl": null,
+  "replay": {
+    "replayed": 4,
+    "authored": 0
+  },
+  "sessionDir": null,
+  "sessionId": "30277a09-9708-48c0-a96c-248709fdb493",
+  "finalState": null,
+  "failedStep": null,
+  "steps": [
+    {
+      "key": "md-1",
+      "index": 1,
+      "status": "passed",
+      "remark": "Open the invoice list",
+      "ms": 430,
+      "actions": [
+        "Navigate to http://localhost:4173/#/reset",
+        "Checking whether the Invoices heading is present",
+        "the Invoices heading is visible"
+      ]
+    },
+    {
+      "key": "md-2",
+      "index": 2,
+      "status": "passed",
+      "remark": "Open Kestrel Logistics",
+      "ms": 860,
+      "actions": [
+        "Clicking the row for Kestrel Logistics (INV-0003) in the Invoices table",
+        "Reading the status for Kestrel Logistics",
+        "its status is Sent."
+      ]
+    },
+    {
+      "key": "md-3",
+      "index": 3,
+      "status": "passed",
+      "remark": "Record payment",
+      "ms": 12070,
+      "actions": [
+        "Clicking Mark as paid button",
+        "Reading the invoice status badge",
+        "Checking whether the Mark as paid button is present",
+        "Verify the status badge now reads Paid and the \"Mark as paid\" button is gone."
+      ]
+    },
+    {
+      "key": "md-4",
+      "index": 4,
+      "status": "passed",
+      "remark": "It sticks in the list",
+      "ms": 1240,
+      "actions": [
+        "Clicking Invoices in the top navigation",
+        "Selecting Paid in the status filter",
+        "Checking whether Kestrel Logistics is listed in the invoices table",
+        "\"Kestrel Logistics\" is listed."
+      ]
+    }
+  ],
+  "warnings": [],
+  "wallSeconds": 27.197,
+  "evidence": "/home/box/.testmuai/kaneai/sessions/30277a09-9708-48c0-a96c-248709fdb493/evidence/a331b132-b1a2-4554-b14f-3ae9821701ce.evidence",
+  "endedAt": "2026-11-16T16:18:52.283Z",
+  "kaneArgs": [
+    "testmd",
+    "run",
+    "flows/mark_paid_test.md",
+    "--agent",
+    "--headless",
+    "--timeout",
+    "300"
+  ],
+  "learnedFiles": [
+    "app.js",
+    "data.js",
+    "index.html",
+    "styles.css",
+    "totals.js"
+  ]
+}

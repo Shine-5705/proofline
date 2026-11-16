@@ -1,6 +1,6 @@
 export type RunStatus = 'running' | 'passed' | 'failed' | 'not_started' | 'timeout' | 'error';
 export type Verdict = 'green' | 'red' | 'blocked' | 'skipped' | 'agent_missing';
-export type LoopStatus = 'running' | 'green' | 'gave_up' | 'blocked' | 'error' | 'skipped';
+export type LoopStatus = 'running' | 'green' | 'gave_up' | 'blocked' | 'error' | 'skipped' | 'cancelled';
 
 export interface Step { key: string; index: number; status: string; remark: string; ms: number | null; actions?: string[] }
 
@@ -25,7 +25,8 @@ export interface Run {
   credits?: number | null;
   testUrl?: string | null;
   evidence?: string | null;
-  failedStep?: { index: number; remark: string } | null;
+  failedStep?: { index: number; remark: string; diagnosis?: string } | null;
+  heals?: number;
   steps: Step[];
   replay?: { replayed: number | null; authored: number | null } | null;
   source: 'kane-cli' | 'demo';
@@ -55,6 +56,7 @@ export interface Loop {
   iterations: Iteration[];
   maxIterations: number;
   source: 'kane-cli' | 'demo';
+  note?: string;
 }
 
 export interface Flow {

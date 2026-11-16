@@ -94,6 +94,8 @@ h2 { font-size: 13px; }
 .status.passed .dot, .status.green .dot { background: var(--pass); } .status.passed, .status.green { color: var(--pass); }
 .status.failed .dot, .status.red .dot, .status.gave_up .dot, .status.error .dot { background: var(--fail); } .status.failed, .status.red, .status.gave_up, .status.error { color: var(--fail); }
 .status.not_started .dot, .status.blocked .dot, .status.timeout .dot { background: var(--warn); } .status.not_started, .status.blocked, .status.timeout { color: var(--warn); }
+.status.cancelled .dot { background: var(--text-3); } .status.cancelled { color: var(--text-2); }
+.agent-note { margin-top: 6px; padding: 8px 10px; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 6px; font-size: 12.5px; color: var(--text-2); white-space: pre-wrap; }
 .status.running .dot { background: var(--run); animation: pulse 1.2s ease-in-out infinite; } .status.running { color: var(--run); }
 @keyframes pulse { 50% { opacity: .35; } }
 .tag { display: inline-block; font-size: 11px; color: var(--text-2); border: 1px solid var(--border); border-radius: 4px; padding: 0 5px; line-height: 18px; }

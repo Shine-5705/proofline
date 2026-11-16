@@ -84,7 +84,8 @@ export function RunDetail({ ws, id }: { ws: Workspace; id: string }) {
             <div className="callout" style={{ marginTop: 0, marginBottom: 16 }}>
               <div className="k">{run.failedStep ? `Failed at step ${run.failedStep.index}` : 'Reason'}</div>
               <div style={{ marginTop: 2, fontWeight: 500 }}>{run.failedStep?.remark || run.reason}</div>
-              {run.summary && <div className="muted" style={{ marginTop: 4 }}>{run.summary}</div>}
+              {(run.failedStep?.diagnosis || run.summary) && run.failedStep?.diagnosis !== run.failedStep?.remark && <div className="muted" style={{ marginTop: 4, whiteSpace: 'pre-wrap' }}>{run.failedStep?.diagnosis || run.summary}</div>}
+              {run.heals ? <div className="faint" style={{ marginTop: 4, fontSize: 12 }}>Kane re-ran the failing step with adaptive heal before confirming the failure.</div> : null}
             </div>
           )}
           <div className="section-head"><h2>Steps Kane CLI took</h2><span className="hint">{run.steps.length} steps</span></div>
@@ -116,6 +117,7 @@ export function RunDetail({ ws, id }: { ws: Workspace; id: string }) {
             <dt>Exit code</dt><dd className="num">{run.exitCode ?? '—'}</dd>
             <dt>Credits</dt><dd className="num">{run.credits != null ? Math.round(run.credits * 10) / 10 : '—'}</dd>
             <dt>kane-cli</dt><dd className="mono">{run.kaneVersion || '—'}</dd>
+            {run.replay && <><dt>Kane steps</dt><dd className="num">{run.replay.authored ?? 0} authored · {run.replay.replayed ?? 0} replayed</dd></>}
             {run.testUrl && <><dt>Test Manager</dt><dd><a href={run.testUrl} target="_blank" rel="noreferrer">Open test case ↗</a></dd></>}
             {run.evidence && <><dt>Evidence</dt><dd className="mono" style={{ fontSize: 12 }}>{run.evidence}<div className="faint">kane-cli evidence serve {run.evidence}</div></dd></>}
             <dt>Run id</dt><dd className="mono faint">{run.id}</dd>

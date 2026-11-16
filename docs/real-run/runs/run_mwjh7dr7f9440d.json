@@ -1,0 +1,119 @@
+{
+  "id": "run_mwjh7dr7f9440d",
+  "flowId": "create_invoice",
+  "flowFile": "flows/create_invoice_test.md",
+  "flowTitle": "Create an invoice with a discount",
+  "trigger": "loop",
+  "loopId": "loop_mwjh7db0c20bb3",
+  "iteration": 1,
+  "changedFiles": [
+    "totals.js"
+  ],
+  "git": {
+    "sha": "dc04313",
+    "dirty": true
+  },
+  "kaneVersion": "0.10.4",
+  "startedAt": "2026-11-16T16:26:40.099Z",
+  "status": "failed",
+  "source": "kane-cli",
+  "exitCode": 1,
+  "summary": "A 10% discount reduces ₹35,000 to ₹31,500, so 18% GST should be ₹5,670 and the total should be ₹37,170. The displayed summary instead shows ₹6,300 GST and ₹37,800 total, which means tax was calculated before the discount was applied.\nUpdate the invoice calculation so GST is calculated after subtracting the discount: ₹31,500 × 18% = ₹5,670, then show a ₹37,170 total.\nevidence: objective_contradiction: Final verification failed: \"the summary shows Subtotal ₹35,000, Discount − ₹3,500, GST 18% ₹5,670 and Total ₹37,170\"",
+  "reason": "Final verification failed: \"the summary shows Subtotal ₹35,000, Discount − ₹3,500, GST 18% ₹5,670 and Total ₹37,170\"",
+  "duration": 56,
+  "credits": 7.130789999999999,
+  "testUrl": null,
+  "replay": {
+    "replayed": 4,
+    "authored": 2
+  },
+  "sessionDir": "/home/box/.testmuai/kaneai/sessions/8dd556bc-3925-4325-824d-ea6e8b9ac87e",
+  "sessionId": "8dd556bc-3925-4325-824d-ea6e8b9ac87e",
+  "finalState": {},
+  "failedStep": {
+    "index": 5,
+    "remark": "Check the totals: The invoice summary applies GST to the ₹35,000 subtotal instead of the discounted ₹31,500 amount.",
+    "diagnosis": "A 10% discount reduces ₹35,000 to ₹31,500, so 18% GST should be ₹5,670 and the total should be ₹37,170. The displayed summary instead shows ₹6,300 GST and ₹37,800 total, which means tax was calculated before the discount was applied.\nUpdate the invoice calculation so GST is calculated after subtracting the discount: ₹31,500 × 18% = ₹5,670, then show a ₹37,170 total.\nevidence: objective_contradiction: Final verification failed: \"the summary shows Subtotal ₹35,000, Discount − ₹3,500, GST 18% ₹5,670 and Total ₹37,170\""
+  },
+  "heals": 0,
+  "steps": [
+    {
+      "key": "md-1",
+      "index": 1,
+      "status": "passed",
+      "remark": "Open a fresh workspace",
+      "ms": 570,
+      "actions": [
+        "Navigate to http://localhost:4173/#/reset",
+        "Checking whether the Invoices heading is present",
+        "the Invoices heading is visible"
+      ]
+    },
+    {
+      "key": "md-2",
+      "index": 2,
+      "status": "passed",
+      "remark": "Start a new invoice",
+      "ms": 1070,
+      "actions": [
+        "Clicking New invoice",
+        "Typing Acme Robotics in the Client field"
+      ]
+    },
+    {
+      "key": "md-3",
+      "index": 3,
+      "status": "passed",
+      "remark": "Add two line items",
+      "ms": 5610,
+      "actions": [
+        "Waiting for plan steps to complete",
+        "Type \"Design sprint\" into \"Item 1\"",
+        "Waiting for the plan steps to be processed",
+        "Type \"2\" into \"Quantity 1\"",
+        "Entering 15000 in line 1 rate field",
+        "Clicking Add line button",
+        "Waiting for the plan to process",
+        "Type \"QA pass\" into \"Item 2\"",
+        "Type \"1\" into \"Quantity 2\"",
+        "Type \"5000\" into \"Rate 2\""
+      ]
+    },
+    {
+      "key": "md-4",
+      "index": 4,
+      "status": "passed",
+      "remark": "Apply a discount",
+      "ms": 12270,
+      "actions": [
+        "Typing 10 into Discount (%) field",
+        "Clicking outside the Discount (%) field",
+        "Clicking blank whitespace in the Summary panel beside Discount (%)"
+      ]
+    },
+    {
+      "key": "md-5",
+      "index": 5,
+      "status": "failed",
+      "remark": "Check the totals: The invoice summary applies GST to the ₹35,000 subtotal instead of the discounted ₹31,500 amount.",
+      "ms": 31000,
+      "actions": [
+        "the summary shows Total ₹37,170",
+        "the summary shows Subtotal ₹35,000, Discount − ₹3,500, GST 18% ₹5,670 and Total "
+      ]
+    }
+  ],
+  "warnings": [],
+  "wallSeconds": 65.654,
+  "evidence": "/home/box/.testmuai/kaneai/sessions/8dd556bc-3925-4325-824d-ea6e8b9ac87e/evidence/0fe868cf-5e34-47f5-9010-3f83a306fe23.evidence",
+  "endedAt": "2026-11-16T16:27:45.754Z",
+  "kaneArgs": [
+    "testmd",
+    "run",
+    "flows/create_invoice_test.md",
+    "--agent",
+    "--headless",
+    "--timeout",
+    "300"
+  ]
+}

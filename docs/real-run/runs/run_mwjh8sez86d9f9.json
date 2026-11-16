@@ -1,0 +1,107 @@
+{
+  "id": "run_mwjh8sez86d9f9",
+  "flowId": "mark_paid",
+  "flowFile": "flows/mark_paid_test.md",
+  "flowTitle": "Mark a sent invoice as paid",
+  "trigger": "loop",
+  "loopId": "loop_mwjh7db0c20bb3",
+  "iteration": 1,
+  "changedFiles": [
+    "totals.js"
+  ],
+  "git": {
+    "sha": "dc04313",
+    "dirty": true
+  },
+  "kaneVersion": "0.10.4",
+  "startedAt": "2026-11-16T16:27:45.755Z",
+  "status": "passed",
+  "source": "kane-cli",
+  "exitCode": 0,
+  "summary": "passed",
+  "reason": "replay completed",
+  "duration": 19,
+  "credits": null,
+  "testUrl": null,
+  "replay": {
+    "replayed": 4,
+    "authored": 0
+  },
+  "sessionDir": null,
+  "sessionId": "1092774b-4aa9-4fab-b2ee-760596ce4bed",
+  "finalState": null,
+  "failedStep": null,
+  "heals": 0,
+  "steps": [
+    {
+      "key": "md-1",
+      "index": 1,
+      "status": "passed",
+      "remark": "Open the invoice list",
+      "ms": 480,
+      "actions": [
+        "Navigate to http://localhost:4173/#/reset",
+        "Checking whether the Invoices heading is present",
+        "the Invoices heading is visible"
+      ]
+    },
+    {
+      "key": "md-2",
+      "index": 2,
+      "status": "passed",
+      "remark": "Open Kestrel Logistics",
+      "ms": 890,
+      "actions": [
+        "Clicking the row for Kestrel Logistics (INV-0003) in the Invoices table",
+        "Reading the status for Kestrel Logistics",
+        "its status is Sent."
+      ]
+    },
+    {
+      "key": "md-3",
+      "index": 3,
+      "status": "passed",
+      "remark": "Record payment",
+      "ms": 12210,
+      "actions": [
+        "Clicking Mark as paid button",
+        "Reading the invoice status badge",
+        "Checking whether the Mark as paid button is present",
+        "Verify the status badge now reads Paid and the \"Mark as paid\" button is gone."
+      ]
+    },
+    {
+      "key": "md-4",
+      "index": 4,
+      "status": "passed",
+      "remark": "It sticks in the list",
+      "ms": 1030,
+      "actions": [
+        "Clicking Invoices in the top navigation",
+        "Selecting Paid in the status filter",
+        "Checking whether Kestrel Logistics is listed in the invoices table",
+        "\"Kestrel Logistics\" is listed."
+      ]
+    }
+  ],
+  "warnings": [],
+  "wallSeconds": 27.201,
+  "evidence": "/home/box/.testmuai/kaneai/sessions/1092774b-4aa9-4fab-b2ee-760596ce4bed/evidence/769b29f4-a35f-4125-bc6a-5a43bd61727d.evidence",
+  "endedAt": "2026-11-16T16:28:12.958Z",
+  "kaneArgs": [
+    "testmd",
+    "run",
+    "flows/mark_paid_test.md",
+    "--agent",
+    "--headless",
+    "--timeout",
+    "300"
+  ],
+  "learnedFiles": [
+    "app.js",
+    "data.js",
+    "index.html",
+    "styles.css",
+    "totals.js"
+  ]
+}
