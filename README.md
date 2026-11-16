@@ -71,6 +71,10 @@ node ../../bin/proofline.mjs loop "Fix whatever Kane finds" --verify-first --age
 `--verify-first` runs Kane before the agent's first turn, so the loop starts from a red run: Kane fails
 `create_invoice` at the totals step, the brief goes to the agent, the agent fixes `totals.js`, Kane passes, loop closes.
 
+The example already ships with the Claude Code and Cursor stop hooks (`examples/invoice-app/.claude/settings.json`,
+`.cursor/hooks.json`): open `examples/invoice-app` in either agent and the loop runs on its own.
+Full walkthrough: [docs/REAL_RUN.md](docs/REAL_RUN.md).
+
 ## How the loop closes
 
 ![Architecture](docs/architecture.png)
@@ -159,7 +163,7 @@ test/                    node:test suite; fixtures/fake-kane.mjs is a test doubl
 ## Development
 
 ```bash
-npm test                                   # 11 tests, no network, no credits
+npm test                                   # 12 tests, no network, no credits
 npm --prefix console install
 npm run console:dev                        # Vite dev server, proxies /api to proofline ui on :4317
 npm run console:build
